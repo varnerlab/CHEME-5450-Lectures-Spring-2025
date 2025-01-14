@@ -1,0 +1,28 @@
+\begin{thebibliography}{1}
+
+\bibitem{Palsson2015}
+Palsson B{\O}.
+\newblock Systems Biology: Constraint-based Reconstruction and Analysis.
+\newblock Cambridge University Press; 2015.
+
+\bibitem{Metabolism}
+W{\"u}nschiers R, Jahn M, Jahn D, Schomburg I, Peifer S, Heinzle E, et~al.
+\newblock 3.
+\newblock In: Metabolism. {John Wiley \& Sons, Ltd}; 2012. p. 37--209.
+\newblock Available from:
+  \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/9781118657072.ch3}.
+
+\bibitem{Famili:2003aa}
+Famili I, Palsson BO.
+\newblock Systemic metabolic reactions are obtained by singular value
+  decomposition of genome-scale stoichiometric matrices.
+\newblock J Theor Biol. 2003;224(1):87--96.
+\newblock doi:{10.1016/s0022-5193(03)00146-2}.
+
+\bibitem{Orth:2010aa}
+Orth JD, Thiele I, Palsson B{\O}.
+\newblock What is flux balance analysis?
+\newblock Nat Biotechnol. 2010;28(3):245--8.
+\newblock doi:{10.1038/nbt.1614}.
+
+\end{thebibliography}

@@ -1,0 +1,182 @@
+\documentclass{article}[12pt]
+\usepackage{fullpage,graphicx, setspace, latexsym, cite,amsmath,amssymb,xcolor,subfigure}
+%\usepackage{epstopdf}
+%\DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg,.mps} 
+\usepackage{amssymb} %maths
+\usepackage{amsmath} %maths
+\usepackage{amsthm, comment}
+\usepackage[round,comma,sort, numbers]{natbib}
+
+% \bibliographystyle{plain}
+\bibliographystyle{plos2015}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{defn}{Definition}
+\newtheorem{ex}{Example}
+\usepackage{float}
+
+\newcommand*{\underuparrow}[1]{\underset{\uparrow}{#1}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{algorithmicx}
+\usepackage{algorithm} %http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode} %http://ctan.org/pkg/algorithmicx
+\usepackage{enumitem}
+\usepackage{simplemargins}
+\usepackage{hyperref}
+
+\renewcommand{\bibnumfmt}[1]{#1.}
+\setlist{noitemsep} % or \setlist{noitemsep} to leave space around whole list
+\setallmargins{1in}
+\linespread{1.1}
+
+
+\def\R{\mathbb{R}}
+\def\Eps{\mathcal{E}}
+\def\E{\mathbb{E}}
+\def\V{\mathbb{V}}
+\def\F{\mathcal{F}}
+\def\G{\mathcal{G}}
+\def\H{\mathcal{H}}
+\def\S{\mathcal{S}}
+\def\P{\mathbb{P}}
+\def\1{\mathbf{1}}
+\def\n{\nappa}
+\def\h{\mathbf{w}}
+\def\v{\mathbf{v}}
+\def\x{\mathbf{x}}
+\def\X{\mathcal{X}}
+\def\Y{\mathcal{Y}}
+\def\eps{\epsilon}
+\def\y{\mathbf{y}}
+\def\e{\mathbf{e}}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   % \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \setlength{\headsep}{10mm}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CHEME 5450: Introduction to Systems and Synthetic Biology
+   \hfill Spring 2025} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Week #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Week #1: #2}{Week #1: #2}
+
+   \noindent{\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications. }
+   \vspace*{4mm}
+}
+
+
+\begin{document}
+\lecture{4}{Metabolism and Metabolic Networks}{Jeffrey Varner}{}
+
+\section{Introduction}
+Metabolism is the set of chemical reactions that occur in living organisms to maintain life. 
+These chemical reactions are organized into metabolic pathways, which are sequences of chemical reactions that convert a substrate into a product. 
+Metabolic pathways are interconnected to form metabolic networks, which are the focus of this week in lecture. 
+Metabolic networks are complex systems that are responsible for the synthesis and degradation of metabolites, which are small molecules that are intermediates or products of metabolism. 
+Metabolic networks are also responsible for the generation of energy, which is required for the maintenance of life. 
+This week, we will discuss the structure and function of metabolic networks, and how they can be analyzed using mathematical models.
+Let's get started by discussing catabolism and anabolism, which are the two main types of metabolic pathways.
+
+\section{Catabolism and Anabolism}
+Metabolic pathways can be divided into two main types: catabolic pathways and anabolic pathways.
+Catabolic pathways are responsible for the breakdown of complex molecules into simpler molecules, which releases energy.
+On the other hand, anabolic pathways are responsible for the synthesis of complex molecules from simpler molecules, which requires energy.
+
+The main purpose of catabolic pathways is to generate energy and small molecules that can be used as building blocks for anabolic pathways.
+Here will discuss three important catabolic pathways (which we'll collectively call central carbon metabolism): glycolysis, the pentose phosphate pathway and the 
+citric acid cycle. Glycolysis is a catabolic pathway that converts sugars, e.g., glucose into \texttt{pyruvate}, which can then be further metabolized to generate energy.
+The first step of glycolysis is the conversion of glucose into glucose-6-phosphate, which is then converted into fructose-6-phosphate, and so on.
+The pentose phosphate pathway is a catabolic pathway that converts glucose-6-phosphate into ribose-5-phosphate, which is a precursor for the synthesis of nucleotides, and some aromatic amino acids.
+It is also an important source of \texttt{NADPH}, which is a reducing agent that is required for biosynthetic reactions.
+Finally, the citric acid cycle is a catabolic pathway that converts acetyl-CoA (generated from pyruvate) into \texttt{CO2}, \texttt{NADH}, \texttt{FADH2} and \texttt{GTP}.
+The \texttt{NADH} and \texttt{FADH2} generated by the citric acid cycle are used to generate energy through another pathway called \texttt{oxidative phosphorylation}.
+
+Anabolic pathways are responsible for the synthesis of complex molecules from simpler molecules, which requires energy.
+For example, the synthesis of macromolecules such as proteins, nucleic acids, lipids and polysaccharides are examples of anabolic pathways, 
+each of which requires energy in the form of high-energy phosphate bonds and reducing power in the form of \texttt{NADH} (\texttt{NADPH}).
+Anabolic pathways are often regulated by the availability of substrates and energy, as well as the demand for the end products of the pathway.
+
+The details of the central carbon metabolism and other metabolic pathways can be found in many textbooks, such as \cite{Palsson2015} or Chapter 3 of Wünschiers et al \cite{Metabolism}.
+Thus, we will not discuss them in detail here, but instead abstract the structure and function of metabolic networks into a mathematical model.
+
+\section{Abstracting Metabolic Networks}
+Suppose we have some metabolic network with $M$ metabolites and $R$ reactions, where the set of reactions is denoted by $\R$ where $|\mathcal{R}|=R$ and the set of metabolites is denoted by $\mathcal{M}$, where $|\mathcal{M}|=M$.
+Each reaction $j \in \mathcal{R}$ is catalyzed by an enzyme, $e_{j}\in\E$, where $\E$ denotes the set of enzymes in the network. 
+Let's not worry about the details of enzyme kinetics for now, or where the enzymes come from, but instead focus on the stoichiometry of the network, which describes the relationships between metabolites and reactions.
+The stoichiometry of the network can be represented by a stoichiometric matrix $\mathbf{S} \in \R^{M \times R}$, where $s_{ij}$ is the stoichiometric coefficient of metabolite $i$ in reaction $j$.
+If $s_{ij} > 0$, then metabolite $i$ is a product of reaction $j$, and if $s_{ij} < 0$, then metabolite $i$ is a substrate of reaction $j$.
+Finally, if $s_{ij} = 0$, then metabolite $i$ is not involved in reaction $j$. 
+
+\subsection{Intracellular Material Balance Equations}
+Each metabolite in the network, as well as each enzyme, is subject to a material balance equation, which describes the rate of change of the concentration of the metabolite (enzyme) in the network.
+Imagine that we have a \texttt{abstract biophase}, which is a well-mixed compartment where our metabolic reactions are occuring.
+This biophase can be a single cell, a compartment within a single cell, such as the cytoplasm or mitochondria, a cell-free system or a even collection of cells in 
+a bioreactor. Let the volume of the biophase be $V$ (depending on the context, $V$ could be the volume of a single cell, the volume of the cytoplasm, cell number, cell mass, thus it will units specific to the case).
+
+\subsection{Properties of the Stoichiometric Matrix}
+The stoichiometric matrix $\mathbf{S}$ is the digital representation of the metabolic network, and it can be used to analyze some of the structural properties of the network.
+There is a large body of literature on the analysis of the structure of metabolic networks using various decomposition approaches of stoichiometric matrices. 
+Let's look at one particular approach to analyzing the structure of metabolic networks, using singular value decomposition (SVD) \cite{Famili:2003aa}.
+
+\subsubsection{Aside: Singular Value Decomposition?}
+Suppose we have a matrix $A \in \R^{m \times n}$. The SVD of $\mathbf{A}$ is a factorization of the form: $\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^{T}$, where
+$\mathbf{U}\in\mathbb{R}^{n\times{n}}$ and $\mathbf{V}\in\mathbb{R}^{m\times{m}}$ are orthogonal matrices, i.e., $\mathbf{U}\cdot\mathbf{U}^{T} = \mathbf{I}$ and $\mathbf{\Sigma}\in\mathbb{R}^{n\times{m}}$ is a diagonal matrix containing 
+the singular values $\sigma_{i}=\Sigma_{ii}$. The matrix $\mathbf{A}\in\mathbb{R}^{n\times{m}}$ can be decomposed as:
+\begin{equation*}
+\mathbf{A} = \sum_{i=1}^{r_{\mathbf{A}}}\sigma_{i}\cdot\left(\mathbf{u}_{i}\otimes\mathbf{v}_{i}\right)
+\end{equation*}
+where $r_{\mathbf{A}}$ is the rank of matrix $\mathbf{A}$ and $\otimes$ denotes the outer product. 
+The outer product $\hat{\mathbf{A}}_{i} = \mathbf{u}_{i}\otimes\mathbf{v}_{i}$ is a rank-1 matrix with elements: 
+\begin{equation*}
+\hat{a}_{jk} = u_{j}v_{k}\qquad{j=1,2,\dots,n~\text{and}~k=1,2,\dots,m}
+\end{equation*}
+The vectors $\mathbf{u}_{i}$ and $\mathbf{v}_{i}$ are the left (right) singular vectors, 
+and $\sigma_{i}$ are the singular values (ordered). Singular value decomposuition is a special sort of eigendecomposition, thus, we could use QR-itereation to compute the SVD.
+The columns of $\mathbf{U}$ are eigenvectors of $\mathbf{A}\mathbf{A}^{T}$, 
+the columns of $\mathbf{V}$ are eigenvectors of $\mathbf{A}^{T}\mathbf{A}$ and
+the singular values $\sigma_{i}$ are the square roots of the eigenvalues of the matrix products $\mathbf{A}\mathbf{A}^{T}$ or $\mathbf{A}^{T}\mathbf{A}$. 
+
+
+\section{Metabolic Flux Analysis}
+Metabolic flux analysis is a powerful tool for analyzing the structure and function of metabolic networks.
+The goal of metabolic flux analysis is to estimate the rates of the reactions in the network, which are called metabolic fluxes, from experimental data.
+The key assumption of metabolic flux analysis is that the network is at (or near) a steady state, which means that the concentrations of the metabolites and enzymes in the network are approximately constant over time.
+
+\section{Flux Balance Analysis}
+Flux balance analysis (FBA) is another mathematical method for analyzing the structure and function of metabolic networks \cite{Orth:2010aa}.
+Like metabolic flux analysis, the goal of FBA is to estimate the rates of the reactions in the network, which are called metabolic fluxes, from experimental data.
+However, FBA makes some additional simplyfying assumptions about the network, which allows for the use of linear programming to solve for the metabolic fluxes.
+
+\section{Timescales in Metabolic Networks}
+Fill in here.
+
+\section{Summary}
+In this lecture, we discussed the structure and function of metabolic networks, and how they can be analyzed using mathematical models.
+
+
+
+
+
+\bibliography{References-W4.bib}
+
+\end{document}
