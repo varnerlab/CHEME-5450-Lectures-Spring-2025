@@ -222,32 +222,25 @@ the columns of $\mathbf{V}$ are eigenvectors of $\mathbf{A}^{T}\mathbf{A}$ and
 the singular values $\sigma_{i}$ are the square roots of the eigenvalues of the matrix products $\mathbf{A}\mathbf{A}^{T}$ or $\mathbf{A}^{T}\mathbf{A}$. 
 
 \section{Estimating Metabolic Fluxes}
-Metabolic fluxes are the rates of the reactions in a metabolic network, which are the unknowns that we want to estimate from experimental data.
-These fluxes can be estimated using a variety of mathematical methods, such as metabolic flux analysis and flux balance analysis.
-You can think of metabolic fluxes as the flow of metabolites through the network, which is analogous to the flow of water through a pipe.
+Metabolic fluxes are the rates of the reactions in a metabolic network, which are the unknowns that we want to estimate from various types of experimental data.
+You can think of metabolic fluxes as the flow of metabolites through the metabolic network, which is analogous to the flow of water through a pipe.
 Thus, estimating the metabolic fluxes is important for understanding the structure and operation of a metabolic network as a function of the environment.
+Metabolic fluxes can be estimated using a variety of mathematical methods, such as metabolic flux analysis (MFA) and flux balance analysis (FBA).
+These two methods are based on different assumptions about the network, and they have different strengths and weaknesses.
 Let's start by discussing metabolic flux analysis, and conclude with a discussion of flux balance analysis.
 
 \subsection{Metabolic Flux Analysis}
 Metabolic flux analysis is a powerful tool for analyzing the structure and function of metabolic networks.
-The goal of metabolic flux analysis is to estimate the rates of the reactions in the network, which are called metabolic fluxes, from experimental data.
+The goal of metabolic flux analysis is to estimate the rates of the reactions in the network, which are called metabolic fluxes, from experimental data, in particular, isotopic labeling data or exchange flux data (rates of uptake or secretion of metabolites).
 The key assumption of metabolic flux analysis is that the network is at (or near) a steady state, which means that the concentrations of the metabolites and enzymes in the network are approximately constant over time.
-Under this assumption, the rate of change of the concentration of each metabolite and enzyme in the network is zero, which allows us to write a set of (typically underdtermined) linear equations that describe the network.
-Before we discuss the MFA problem, let's first discuss the solution of underdetermined linear systems.
+Under this assumption, the rate of accumulation of each metabolite (enzyme) in the network is zero, which allows us to write a set of linear algebraic equations that describe the network flux.
+Traditional metabolic flux analysis uses a stoichiometric model of the network, which is a set of linear equations that describe the relationships between the metabolites and reactions in the network.
+Alternatively, labeled isotopes can be used to estimate the metabolic fluxes in the network, which is called isotopic flux analysis.
 
-\subsubsection*{Underdetermined Linear Regression models}
-Assume the data matrix $\mathbf{X}$ is $\texttt{underdetermined}$, i.e., $m < n$ (more columns than rows), and 
-the error vector $\mathbf{\epsilon}\sim\mathcal{N}(\mathbf{0},\sigma^{2}\cdot\mathbf{I})$.
-Then, an \href{https://en.wikipedia.org/wiki/Ordinary_least_squares}{ordinary least squares} estimate of the unknown parameters is the $\textit{smallest}$ parameter vector $\beta$ that satisfies the original equations:
-\begin{eqnarray*}
-\text{minimize}~& & ||\,\mathbf{\beta}\,|| \\
-\text{subject to} & & \mathbf{X}\cdot\mathbf{\beta} = \mathbf{y}
-\end{eqnarray*}
-The least-norm problem has an analytical estimate for the unknown parameter vector $\hat{\mathbf{\beta}}$ given by:
-\begin{equation*}
-\hat{\mathbf{\beta}} =\mathbf{X}^{T}\left(\mathbf{X}\mathbf{X}^{T}\right)^{-1}\cdot\mathbf{y} - \mathbf{X}^{T}\left(\mathbf{X}\mathbf{X}^{T}\right)^{-1}\cdot\mathbf{\epsilon}
-\end{equation*}
-where inverse $\left(\mathbf{X}\mathbf{X}^{T}\right)^{-1}$ must exist to obtain the estimated model parameter vectors $\hat{\mathbf{\beta}}$.
+\subsubsection*{Traditional Metabolic Flux Analysis}
+One of the first examples of what we might recognize as traditional metabolic flux analysis was published by Vallino and Stephanopoulos \cite{Vallino:1993aa}
+(although the were several earlier studies from Papoutsakis et al \cite{Papoutsakis:1985ab, Papoutsakis:1985aa} that used similar ideas).
+Vallino and Stephanopoulos used a stoichiometric model of the metabolism of \textit{Corynebacterium glutamicum} in combination with exchange rate measurements to estimate the intracellular fluxes occuring during growth and lysine production.
 
 
 
