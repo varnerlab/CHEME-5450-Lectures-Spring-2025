@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  14 JAN 2025 17:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  14 JAN 2025 20:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -485,26 +485,38 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
 
-[2] (./Notes.bbl)
+[2]
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
 
-[3] (./Notes.aux)
+[3]
+Overfull \vbox (6.94444pt too high) has occurred while \output is active []
+
+
+[4] (./Notes.bbl
+Overfull \vbox (6.94444pt too high) has occurred while \output is active []
+
+
+[5])
+Overfull \vbox (6.94444pt too high) has occurred while \output is active []
+
+
+[6] (./Notes.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
  ***********
 Package rerunfilecheck Info: File `Notes.out' has not changed.
-(rerunfilecheck)             Checksum: AE6ED795B8D9920BCC67C91A65F5B5F9;1866.
+(rerunfilecheck)             Checksum: B1C718C2021FDA8A39B211C892BEB2E6;1729.
  ) 
 Here is how much of TeX's memory you used:
- 12003 strings out of 474116
- 182548 string characters out of 5743682
+ 12037 strings out of 474116
+ 183136 string characters out of 5743682
  1942187 words of memory out of 5000000
- 34166 multiletter control sequences out of 15000+600000
- 563090 words of font info for 57 fonts, out of 8000000 for 9000
+ 34182 multiletter control sequences out of 15000+600000
+ 564124 words of font info for 61 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,6n,79p,542b,443s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,11n,79p,542b,555s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></
@@ -521,10 +533,10 @@ ve/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive
 /2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/
 2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2
 024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on Notes.pdf (3 pages, 200396 bytes).
+Output written on Notes.pdf (6 pages, 217202 bytes).
 PDF statistics:
- 158 PDF objects out of 1000 (max. 8388607)
- 119 compressed objects within 2 object streams
- 19 named destinations out of 1000 (max. 500000)
+ 186 PDF objects out of 1000 (max. 8388607)
+ 144 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
  81 words of extra memory for PDF output out of 10000 (max. 10000000)
 
