@@ -277,8 +277,8 @@ Metabolic reactions are fast, but transcription and translation are slow, which 
 However, that mismatch has a practical consequence: the timescales of the reactions and the timescales of the gene expression can be decoupled, which allows use to think about these two processes separately.
 First, let's check the assertion that metabolic reactions are fast, while gene expression is slow.
 
-\subsection{Timescales of Metabolic Reactions}
-If we think about some reaction $r\in\mathcal{R}$ in a metabolic network that depends upon concentration vector $\mathbf{x}$, 
+Let's start with the timescales of metabolic reactions. Metabolic reactions are fast, with typical timescales on the order of milliseconds to seconds.
+If we think about some metabolic reaction $r\in\mathcal{R}^{\prime}$ in a metabolic network that depends upon concentration vector $\mathbf{x}$, 
 the specific rate of the reaction is goverened by a rate law $\hat{r}_{r}$ (units: $\star$mol/volume-time) of the form:
 \begin{equation}\label{eqn:rate-law}
 \hat{r}_{r} = k_{r}\cdot{E}_{r}\cdot{v_{r}(\mathbf{x})}\cdot{g(\mathbf{x}, \mathbf{\theta})}
@@ -288,6 +288,8 @@ $E_{r}$ denotes the enzyme concentration (units: $\star$mol/volume), and
 $g(\mathbf{x}, \mathbf{\theta})$ denotes the rate law function that depends on the concentration vector $\mathbf{x}$ and some (unknown) parameters $\mathbf{\theta}$.
 The rate law function $0\leq{g(\mathbf{x}, \mathbf{\theta})}\leq{1}$ can be a simple function of the concentration of the reactants, or it can be a complex function that depends on the concentration of the reactants and other factors, 
 such as temperature, pH, or the presence of other molecules. However, the maximum value of the rate law function is 1, which means that the rate of the reaction is limited by the rate constant and the enzyme concentration.
+
+Next, let's consider the timescales of gene expression. Gene expression is slow, with typical timescales on the order of minutes to hours.
 
 
 \section{Estimating Metabolic Fluxes}
