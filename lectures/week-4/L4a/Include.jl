@@ -19,6 +19,7 @@ using FileIO
 using LinearAlgebra
 using Statistics
 using KernelFunctions
+using PrettyTables
 
 # load my codes -
 include(joinpath(_PATH_TO_SRC, "Types.jl"));
