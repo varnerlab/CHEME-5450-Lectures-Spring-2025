@@ -1,0 +1,360 @@
+\documentclass{article}[11pt]
+\usepackage{fullpage,graphicx, setspace, latexsym, cite,amsmath,amssymb,xcolor,subfigure}
+%\usepackage{epstopdf}
+%\DeclareGraphicsExtensions{.pdf,.eps,.png,.jpg,.mps} 
+\usepackage{amssymb} %maths
+\usepackage{amsmath} %maths
+\usepackage{amsthm, comment}
+\usepackage[round,comma,sort,numbers]{natbib}
+
+% \bibliographystyle{plain}
+\bibliographystyle{plos2015}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{prop}{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{defn}{Definition}
+\newtheorem{ex}{Example}
+\usepackage{float}
+
+\newcommand*{\underuparrow}[1]{\underset{\uparrow}{#1}}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{algorithmicx}
+\usepackage{algorithm} %http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode} %http://ctan.org/pkg/algorithmicx
+\usepackage{enumitem}
+\usepackage{simplemargins}
+\usepackage{hyperref}
+
+\usepackage{mdframed}
+\definecolor{lgray}{rgb}{0.92,0.92,0.92}
+\definecolor{lsalmon}{rgb}{0.9921568627450981,0.9411764705882353, 0.9254901960784314}
+
+\renewcommand{\bibnumfmt}[1]{#1.}
+\setlist{noitemsep} % or \setlist{noitemsep} to leave space around whole list
+\setallmargins{1in}
+\linespread{1.1}
+
+\newcommand{\brows}[1]{%
+  \begin{bmatrix}
+  \begin{array}{@{\protect\rotvert\;}c@{\;\protect\rotvert}}
+  #1
+  \end{array}
+  \end{bmatrix}
+}
+\newcommand{\rotvert}{\rotatebox[origin=c]{90}{$\vert$}}
+\newcommand{\rowsvdots}{\multicolumn{1}{@{}c@{}}{\vdots}}
+
+
+\def\R{\mathbb{R}}
+\def\Eps{\mathcal{E}}
+\def\E{\mathbb{E}}
+\def\V{\mathbb{V}}
+\def\F{\mathcal{F}}
+\def\G{\mathcal{G}}
+\def\H{\mathcal{H}}
+\def\S{\mathcal{S}}
+\def\D{\mathcal{D}}
+\def\P{\mathbb{P}}
+\def\1{\mathbf{1}}
+\def\n{\nappa}
+\def\h{\mathbf{w}}
+\def\v{\mathbf{v}}
+\def\x{\mathbf{x}}
+\def\X{\mathcal{X}}
+\def\Y{\mathcal{Y}}
+\def\eps{\epsilon}
+\def\y{\mathbf{y}}
+\def\e{\mathbf{e}}
+\newcommand{\norm}[1]{\left|\left|#1\right|\right|}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand{\lecture}[4]{
+   \pagestyle{myheadings}
+   \thispagestyle{plain}
+   \newpage
+   % \setcounter{lecnum}{#1}
+   \setcounter{page}{1}
+   \setlength{\headsep}{10mm}
+   \noindent
+   \begin{center}
+   \framebox{
+      \vbox{\vspace{2mm}
+    \hbox to 6.28in { {\bf CHEME 5820: Machine Learning for Engineers
+   \hfill Spring 2025} }
+       \vspace{4mm}
+       \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+       \vspace{2mm}
+       \hbox to 6.28in { {\it Lecturer: #3 \hfill #4} }
+      \vspace{2mm}}
+   }
+   \end{center}
+   \markboth{Lecture #1: #2}{Lecture #1: #2}
+
+   \noindent{\bf Disclaimer}: {\it These notes have not been subjected to the
+   usual scrutiny reserved for formal publications. }
+   \vspace*{4mm}
+}
+
+
+\begin{document}
+\lecture{4}{Metabolism and Metabolic Networks}{Jeffrey Varner}{}
+
+\section{Introduction}
+Metabolism is the set of chemical reactions that occur in living organisms to maintain life. 
+These chemical reactions are organized into metabolic pathways, which are sequences of chemical reactions that convert a substrate into a product. 
+Metabolic pathways are interconnected to form metabolic networks, which are the focus of this week in lecture. 
+Metabolic networks are complex systems that are responsible for the synthesis and degradation of metabolites, which are small molecules that are intermediates or products of metabolism. 
+Metabolic networks are also responsible for the generation of energy, which is required for the maintenance of life. 
+This week, we will discuss the structure and function of metabolic networks, and how they can be analyzed using mathematical models.
+Let's get started by discussing catabolism and anabolism, which are the two main types of metabolic pathways.
+
+\section{Catabolism and Anabolism}
+Metabolic pathways can be divided into two main types: catabolic pathways and anabolic pathways.
+Catabolic pathways are responsible for the breakdown of complex molecules into simpler molecules, which releases energy.
+On the other hand, anabolic pathways are responsible for the synthesis of complex molecules from simpler molecules, which requires energy.
+
+The main purpose of catabolic pathways is to generate energy and small molecules that can be used as building blocks for anabolic pathways.
+Here will discuss three important catabolic pathways (which we'll collectively call central carbon metabolism): glycolysis, the pentose phosphate pathway and the 
+citric acid cycle. Glycolysis is a catabolic pathway that converts sugars, e.g., glucose into \texttt{pyruvate}, which can then be further metabolized to generate energy.
+The first step of glycolysis is the conversion of glucose into glucose-6-phosphate, which is then converted into fructose-6-phosphate, and so on.
+The pentose phosphate pathway is a catabolic pathway that converts glucose-6-phosphate into ribose-5-phosphate, which is a precursor for the synthesis of nucleotides, and some aromatic amino acids.
+It is also an important source of \texttt{NADPH}, which is a reducing agent that is required for biosynthetic reactions.
+Finally, the citric acid cycle is a catabolic pathway that converts acetyl-CoA (generated from pyruvate) into \texttt{CO2}, \texttt{NADH}, \texttt{FADH2} and \texttt{GTP}.
+The \texttt{NADH} and \texttt{FADH2} generated by the citric acid cycle are used to generate energy through another pathway called \texttt{oxidative phosphorylation}.
+
+Anabolic pathways are responsible for the synthesis of complex molecules from simpler molecules, which requires energy.
+For example, the synthesis of macromolecules such as proteins, nucleic acids, lipids and polysaccharides are examples of anabolic pathways, 
+each of which requires energy in the form of high-energy phosphate bonds and reducing power in the form of \texttt{NADH} (\texttt{NADPH}).
+Anabolic pathways are often regulated by the availability of substrates and energy, as well as the demand for the end products of the pathway.
+
+The details of the central carbon metabolism and other metabolic pathways can be found in many textbooks, such as \cite{Palsson2015} or Chapter 3 of Wünschiers et al \cite{Metabolism}.
+Thus, we will not discuss them in detail here, but instead abstract the structure and function of metabolic networks into a mathematical model.
+
+\section{Metabolic Networks}
+
+\subsection{Stoichiometric matrix}
+Suppose we have a set of chemical (or biochemical) reactions $\mathcal{R}$ involving the chemical species (metabolite) set $\mathcal{M}$. 
+Then, we can represent the metabolic network using the stoichiometric matrix $\mathbf{S}$ (Defn \ref{defn-stoichiometric-matrix}):
+
+\begin{defn}[Stoichiometric Matrix]\label{defn-stoichiometric-matrix}
+The stoichiometric matrix is a $\mathbf{S}\in\mathbb{R}^{|\mathcal{M}|\times|\mathcal{R}|}$ matrix that holds the stoichiometric coefficients $\sigma_{ij}\in\mathbf{S}$ such that:
+   \begin{itemize}[leftmargin=16pt]
+      \item{$\sigma_{ij}>0$: Chemical species $i$ is \textit{produced} by reaction $j$. Species $i$ is a product of reaction $j$.}
+      \item{$\sigma_{ij} = 0$: Chemical species $i$ is not connected with reaction $j$}
+      \item{$\sigma_{ij}<0$: Chemical species $i$ is \textit{consumed} by reaction $j$. Species $i$ is a reactant of reaction $j$.}
+   \end{itemize}
+   The stoichiometric matrix is a digital representation of the metabolic network, and it can be used to analyze the structure of the network, 
+   as well as to estimate operational values, such as the metabolic fluxes.
+\end{defn}
+
+The stoichiometric matrix $\mathbf{S}$ is the digital representation of the metabolic network, and it can be used to analyze some of the structural properties of the network.
+There is a large body of literature on the analysis of the structure of metabolic networks using various decomposition approaches of stoichiometric matrices. 
+Let's look at one particular approach to analyzing the structure of metabolic networks, using singular value decomposition (SVD) \cite{Famili:2003aa}.
+
+\subsubsection*{Singular Value Decomposition}
+Suppose we have a matrix $A \in \R^{m \times n}$. The SVD of $\mathbf{A}$ is a factorization of the form: $\mathbf{A} = \mathbf{U}\mathbf{\Sigma}\mathbf{V}^{T}$, where
+$\mathbf{U}\in\mathbb{R}^{n\times{n}}$ and $\mathbf{V}\in\mathbb{R}^{m\times{m}}$ are orthogonal matrices, i.e., $\mathbf{U}\cdot\mathbf{U}^{T} = \mathbf{I}$ and $\mathbf{\Sigma}\in\mathbb{R}^{n\times{m}}$ is a diagonal matrix containing 
+the singular values $\sigma_{i}=\Sigma_{ii}$. The matrix $\mathbf{A}\in\mathbb{R}^{n\times{m}}$ can be decomposed as:
+\begin{equation*}
+\mathbf{A} = \sum_{i=1}^{r_{\mathbf{A}}}\sigma_{i}\cdot\left(\mathbf{u}_{i}\otimes\mathbf{v}_{i}\right)
+\end{equation*}
+where $r_{\mathbf{A}}$ is the rank of matrix $\mathbf{A}$ and $\otimes$ denotes the outer product. 
+The outer product $\hat{\mathbf{A}}_{i} = \mathbf{u}_{i}\otimes\mathbf{v}_{i}$ is a rank-1 matrix with elements: 
+\begin{equation*}
+\hat{a}_{jk} = u_{j}v_{k}\qquad{j=1,2,\dots,n~\text{and}~k=1,2,\dots,m}
+\end{equation*}
+The vectors $\mathbf{u}_{i}$ and $\mathbf{v}_{i}$ are the left (right) singular vectors, 
+and $\sigma_{i}$ are the singular values (ordered). Singular value decomposuition is a special sort of eigendecomposition, thus, we could use QR-itereation to compute the SVD.
+The columns of $\mathbf{U}$ are eigenvectors of $\mathbf{A}\mathbf{A}^{T}$, 
+the columns of $\mathbf{V}$ are eigenvectors of $\mathbf{A}^{T}\mathbf{A}$ and
+the singular values $\sigma_{i}$ are the square roots of the eigenvalues of the matrix products $\mathbf{A}\mathbf{A}^{T}$ or $\mathbf{A}^{T}\mathbf{A}$. 
+
+\subsection{Material Balance Equations}
+Each metabolite, enzyme, genem, mRNA species in the metabolic network is subject to a material balance equation, which describes the rate of change of the concentration of the metabolite (enzyme, etc) in the system.
+Material balance equations are a fundamental concept in chemical engineering that can bbe applied to many different types of systems, including metabolic networks.
+Material balances consist for four types of terms: accumulation, generation, transport in and out of the system.
+
+Imagine we have an \texttt{abstract biophase}, which is a well-mixed compartment where our metabolic reactions are occuring.
+This biophase can be a single cell, a compartment within a single cell, such as the cytoplasm or mitochondria, a cell-free system or a even collection of cells in 
+a bioreactor. Let the volume of the biophase be $V$ (depending on the context, $V$ could be the volume of a single cell, the volume of the cytoplasm, cell number, cell mass, thus it will units specific to the case).
+Then, we can write balances around each chemical species $i\in\mathcal{M}$ in the system as (Defn. \ref{defn-material-balance}):
+
+\begin{defn}[Material Balance Equation]\label{defn-material-balance}
+The material balance equation for species $i$ in the biophase is given by:
+\begin{equation}\label{eqn-material-balance-words}
+\text{Accumulation} = \text{Generation} + \text{Transport In} - \text{Transport Out}
+\end{equation}
+where the accumulation term is the rate of change of species $i$ in the system, generation is the rate of production (consumption) by chemical reactions of species $i$ in the system,
+the transport in term is the rate of transport (convection or passive diffusion) of species $i$ into the system, 
+and the transport out term is the rate of transport of species $i$ out of the system.
+\end{defn}
+
+Material balance equations can be written in terms of the concentration of the species, the number of moles of the species, or the mass of the species.
+The choice of units depends on the context of the problem, and the type of data that is available. 
+However, we'll consider species mole balances and species concentration balances in this lecture (as these are the most common types of material balances used in metabolic network analysis).
+
+\subsubsection*{Dynamic Species Mole Balances}
+If we are interested in the number of moles of each chemical species in the system, we can write the open species mole balance.
+Let $n_{i}$ denote the number of moles of chemical component $i$ in the system 
+(units: $\star$moles, e.g., mmol or  $\mu$mol).
+Further, denote the number of chemical components in the system we want to track as $\mathcal{M}$, and the set of
+streams \texttt{flowing} into (or from) the system as $\mathcal{S}$, where each stream 
+$s\in\mathcal{S}$ has a direction parameter $\nu_{s}\in\left[-1,1\right]$. 
+If stream $s$ enters the system $\nu_{s} = +1$, however is stream $s$ exits the system then $\nu_{s} = -1$.
+
+\begin{defn}[Dynamic Species Mole Balance]\label{defn-dynamic-species-mole-balance}
+The number of moles of chemical component $i$ in the system as a function of time is described by the 
+open species mass balance equation:
+\begin{equation}\label{eqn-species-mol-balance}
+\sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
+\qquad\forall{i}\in\mathcal{M}
+\end{equation}
+where $\dot{n}_{s,i}$ denotes the mole flow rate of component $i$ in stream $s$ (units: $\star$mol $i$/time),
+$\dot{n}_{gen,i}$ denote the rate of generation of component $i$ in the system 
+(units: $\star$mol $i$/time), and $dn_{i}/dt$ denotes the rate of accumlation of the number of moles of component $i$ in the system (units: $\star$mol $i$/time). 
+Finally, let's discuss the generation terms. Generation terms describe the impact of chemical reactions; theoretically, we can describe reactions using a mass or mole basis. 
+However, typically we operate on a mole (or concentration) basis when dealing with chemical reactions.
+Then, the species generation rate $\dot{n}_{G,i}$ can be written in terms of the open extent of reaction:
+\begin{equation}\label{eqn-open-extent-species}
+\dot{n}_{G,i} = \sum_{r\in\mathcal{R}}\sigma_{ir}\dot{\epsilon}_{r}
+\end{equation}
+where $\sigma_{ir}$ denotes the stoichiometric coefficient of species $i$ in reaction $r$, and $\dot{\epsilon}_{r}$ denotes the open extend of reaction $r$ (units: $\star$mol/time).
+Putting these ideas together, we can rewrite the dynamic species mole balance as:
+\begin{mdframed}[backgroundcolor=lgray]
+\begin{equation}\label{eqn-dynamic-smb-with-extent}
+\sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \sum_{r\in\mathcal{R}}\sigma_{ir}\dot{\epsilon}_{r} = \frac{dn_{i}}{dt}\qquad\forall{i\in\mathcal{M}}
+\end{equation}
+\end{mdframed}
+\end{defn}
+
+\subsubsection*{Dynamic Species Concentration Balances}
+When describing systems with chemical reactions where we write reaction rate expressions in terms of 
+concentration, e.g., mole per unit volume basis, it is inconvient to use mole or mass based units.
+In these cases, we need a new type of balance equation, the concentration balance. 
+Let $n_{i}$ denote the number of moles of chemical component $i$ in the system (units: $\star$moles, e.g., mmol or  $\mu$mol). 
+Further, denote the set of chemical species as $\mathcal{M}$, the set of streams flowing into (or from) the system as $\mathcal{S}$, and the set of chemical reactions as $\mathcal{R}$.
+
+\begin{defn}[Dynamic Species Concentration Balance]\label{defn-dynamic-species-concentration-balance}
+The number of moles of chemical component $i$ in the system is described by an open species mass balance equation:
+\begin{equation}
+\sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
+\qquad\forall{i}\in\mathcal{M}
+\end{equation}
+However, we can re-write the number of moles of species $i$ as:
+\begin{equation}
+n_{i} = C_{i}V\qquad\forall{i}\in\mathcal{M}
+\end{equation}
+where $C_{i}$ denotes the concentration of species $i$ (units: mole per volume), and $V$ (units: volume) denotes the volume of the system. 
+Thus, we can re-write the species mole balance in concentration units as:
+\begin{equation}\label{eqn:concentration-balance}
+\sum_{s\in\mathcal{S}}\nu_{s}C_{s,i}\dot{V}_{s} + \dot{C}_{G,i}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i}\in\mathcal{M}
+\end{equation}
+where $\dot{V}_{s}$ denotes the volumetric flow rate for stream $s$ (units: volume/time), 
+$C_{s,i}$ denotes the concentration of component $i$ in stream $s$ (units: concentration), 
+and $\dot{C}_{G,i}$ denotes the rate of generation of component $i$ by chemical reaction (units: concentration/time).
+The generation terms for species $i$ in the concentration balance equation can be written as:
+\begin{equation}\label{eqn:concentration-gen-terms}
+\dot{C}_{G,i}V = \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{r}_{j}V\qquad\forall{i}\in\mathcal{M}
+\end{equation}
+where $\sigma_{ij}$ denotes the stoichiometric coefficient of species $i$ in reaction $j$, 
+and $\hat{r}_{j}$ denotes the rate of reaction $j$ (units: concentration/time).
+Putting these ideas together, we can rewrite the dynamic species concentration balances (in the system) as:
+\begin{mdframed}[backgroundcolor=lgray]
+\begin{equation}\label{eqn:concentration-balance-with-extent}
+\sum_{s\in\mathcal{S}}\nu_{s}C_{s,i}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{r}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}
+\end{equation}
+\end{mdframed}
+\end{defn}
+
+
+\section{Timescales in Metabolic Networks}
+Metabolic systems operate on a wide range of timescales, which can be important for understanding the structure and function of the system.
+Metabolic reactions are fast, but transcription and translation are slow, which can lead to a mismatch between the timescales of the reactions and the timescales of the gene expression.
+However, that mismatch has a practical consequence: the timescales of the reactions and the timescales of the gene expression can be decoupled, which allows use to think about these two processes separately.
+First, let's check the assertion that metabolic reactions are fast, while gene expression is slow.
+
+Let's start with the timescales of metabolic reactions. Metabolic reactions are fast, with typical timescales on the order of milliseconds to seconds.
+If we think about some metabolic reaction $r\in\mathcal{R}^{\prime}$ in a metabolic network that depends upon concentration vector $\mathbf{x}$, 
+the specific rate of the reaction is goverened by a rate law $\hat{r}_{r}$ (units: $\star$mol/volume-time) of the form:
+\begin{equation}\label{eqn:rate-law}
+\hat{r}_{r} = k_{r}\cdot{E}_{r}\cdot{v_{r}(\mathbf{x})}\cdot{g(\mathbf{x}, \mathbf{\theta})}
+\end{equation}
+where $k_{r}$ denotes the rate constant of reaction $r$ (units: 1/time),
+$E_{r}$ denotes the enzyme concentration (units: $\star$mol/volume), and
+$g(\mathbf{x}, \mathbf{\theta})$ denotes the rate law function that depends on the concentration vector $\mathbf{x}$ and some (unknown) parameters $\mathbf{\theta}$.
+The rate law function $0\leq{g(\mathbf{x}, \mathbf{\theta})}\leq{1}$ can be a simple function of the concentration of the reactants, or it can be a complex function that depends on the concentration of the reactants and other factors, 
+such as temperature, pH, or the presence of other molecules. However, the maximum value of the rate law function is 1, which means that the rate of the reaction is limited by the rate constant and the enzyme concentration.
+
+Next, let's consider the timescales of gene expression. Gene expression is slow, with typical timescales on the order of minutes to hours.
+
+
+\section{Estimating Metabolic Fluxes}
+Metabolic fluxes are the rates of the reactions in a metabolic network, which are the unknowns that we want to estimate from various types of experimental data.
+You can think of metabolic fluxes as the flow of metabolites through the metabolic network, which is analogous to the flow of water through a pipe.
+Thus, estimating the metabolic fluxes is important for understanding the structure and operation of a metabolic network as a function of the environment.
+Metabolic fluxes can be estimated using a variety of mathematical methods, such as metabolic flux analysis (MFA) and flux balance analysis (FBA).
+These two methods are based on different assumptions about the network, and they have different strengths and weaknesses.
+Let's start by discussing metabolic flux analysis, and conclude with a discussion of flux balance analysis.
+
+\subsection{Metabolic Flux Analysis}
+Metabolic flux analysis is a powerful tool for analyzing the structure and function of metabolic networks.
+The goal of metabolic flux analysis is to estimate the rates of the reactions in the network, which are called metabolic fluxes, from experimental data, in particular, isotopic labeling data or exchange flux data (rates of uptake or secretion of metabolites).
+The key assumption of metabolic flux analysis is that the network is at (or near) a steady state, which means that the concentrations of the metabolites and enzymes in the network are approximately constant over time.
+Under this assumption, the rate of accumulation of each metabolite (enzyme) in the network is zero, which allows us to write a set of linear algebraic equations that describe the network flux.
+Traditional metabolic flux analysis uses a stoichiometric model of the network, which is a set of linear equations that describe the relationships between the metabolites and reactions in the network.
+Alternatively, labeled isotopes can be used to estimate the metabolic fluxes in the network, which is called isotopic flux analysis.
+
+\subsubsection*{Traditional Metabolic Flux Analysis}
+One of the first examples of what we might recognize as traditional metabolic flux analysis was published by Vallino and Stephanopoulos \cite{Vallino:1993aa}
+(although the were several earlier studies from Papoutsakis et al \cite{Papoutsakis:1985ab, Papoutsakis:1985aa} that used similar ideas).
+Vallino and Stephanopoulos used a stoichiometric model of the metabolism of \textit{Corynebacterium glutamicum} in combination with exchange rate measurements to estimate the intracellular fluxes occuring during growth and lysine production.
+
+The basic idea behind traditional metabolic flux analysis is to use the stoichiometric model of the network to write a set of linear equations that describe the metabolic flux through the network.
+
+
+\subsubsection*{Isotopic Metabolic Flux Analysis}
+Isotopic flux analysis uses the labeling patterns of metabolites to estimate the metabolic fluxes in the network.
+This is a very complex subject, and we will not discuss it in detail here, but the basic idea is that the labeling patterns of metabolites can be used to estimate the metabolic fluxes in the network.
+A recent review of isotopic flux analysis can be found was recently published de Falco et al \cite{D2RA03326G} (although this review does not cover many of the important early studies in the field, not does it cover the mathematical basis of the method).
+
+
+\subsection{Flux Balance Analysis}
+Flux balance analysis (FBA) is another mathematical method for analyzing the structure and function of metabolic networks \cite{Orth:2010aa}.
+Flux balance analysis is arguably the most widely used computational tool to estimate the intracellular or cell-free reaction rates (which are called fluxes) 
+throughout a steady state reaction network (units: $\star$mol/volume-time). 
+However, while we are introducing flux balance analysis in the context of metabolic network analysis, FBA is a general tool that can be used to 
+estimate flows through many different types of networks and graphs, e.g., social graphs, communication networks, or other types of problems that can be represented as a network of graphs.  
+
+Like metabolic flux analysis, the goal of FBA is to estimate the rates of the reactions in the network from experimental data.
+However, FBA makes some additional simplyfying assumptions about the network, which allows for the use of linear programming to solve for the metabolic fluxes.
+Suppose we have a system, with a species set $\mathcal{M}$, stream set $\mathcal{S}$ and a reaction set $\mathcal{R}$. 
+Further, suppose that the system (or at least part of it) is at or near a steady state. 
+Then, the objective of the flux balance analysis is to estimate the value of the reaction rates operating in the system using linear programming.
+The flux balance analysis problem, whose solution provides estimates for the values of the unknown fluxes is the linear program: 
+\begin{eqnarray*}
+\text{minimize/maximize}~& & \sum_{i\in\mathcal{R}}c_{i}\hat{v}_{i}\\
+\text{subject to} & & \sum_{s\in\mathcal{S}}\nu_{s}C_{s,i}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}\\
+\text{subject to} & & \mathcal{L}_{j}\leq\hat{v}_{j}\leq\mathcal{U}_{j}\qquad\forall{j\in\mathcal{R}}
+\end{eqnarray*}
+The matrix $\mathbf{S}$ is the $\mathcal{M}\times\mathcal{R}$ stoichiometric matrix, $c_{i}$ denote the objective coefficients, 
+$\mathbf{v}$ denotes the unknown flux vector (the unknown that we are trying to estimate), and 
+$\mathcal{L}$ ($\mathcal{U}$) denote the permissible lower (upper) bounds on the unknown fluxes. 
+The first set of constraints are material constraints, 
+while the second imparts thermodynamic and kinetic information into the calculation. 
+Finally, there are potentially other types of constraints (both linear and nonlinear) not shown 
+that may be necessary for specific applications encountered in practice.
+
+\section{Summary}
+In this lecture, we discussed the structure and function of metabolic networks, and how they can be analyzed using mathematical models.
+
+
+
+
+
+\bibliography{References-W4.bib}
+
+\end{document}
