@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  14 FEB 2025 05:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  14 FEB 2025 06:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -615,15 +615,15 @@ Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 [4]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 287.
+(mdframed)              on input line 277.
 
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
 
 [5]
-Package mdframed Info: Not enough space on this page on input line 310.
+Package mdframed Info: Not enough space on this page on input line 300.
 Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 315.
+put line 305.
 
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
@@ -631,7 +631,7 @@ Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 [6]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
-(mdframed)              on input line 350.
+(mdframed)              on input line 339.
 
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
@@ -677,7 +677,7 @@ Here is how much of TeX's memory you used:
  35153 multiletter control sequences out of 15000+600000
  563724 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 79i,6n,93p,752b,559s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,6n,93p,764b,559s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb></
@@ -698,7 +698,7 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2024/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2024/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2024/
 texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on Notes.pdf (9 pages, 271216 bytes).
+Output written on Notes.pdf (9 pages, 271287 bytes).
 PDF statistics:
  279 PDF objects out of 1000 (max. 8388607)
  225 compressed objects within 3 object streams
