@@ -3,50 +3,51 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Notes.aux
 The style file: plos2015.bst
 Database file #1: References-W4.bib
-Warning--I didn't find a database entry for "Brezinski:2006"
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=200001) to 20 items from 10.
 Reallocated glb_str_end (elt_size=4) to 20 items from 10.
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
-You've used 7 entries,
+Warning--empty booktitle in Cline2006ComputationOT
+Warning--empty pages in Cline2006ComputationOT
+You've used 14 entries,
             3058 wiz_defined-function locations,
-            698 strings with 6284 characters,
-and the built_in function-call counts, 9276 in all, are:
-= -- 1188
-> -- 68
+            763 strings with 8601 characters,
+and the built_in function-call counts, 23378 in all, are:
+= -- 2987
+> -- 168
 < -- 2
-+ -- 41
-- -- 17
-* -- 723
-:= -- 1047
-add.period$ -- 31
-call.type$ -- 7
++ -- 100
+- -- 42
+* -- 1948
+:= -- 2582
+add.period$ -- 63
+call.type$ -- 14
 change.case$ -- 4
 chr.to.int$ -- 0
-cite$ -- 7
-duplicate$ -- 831
-empty$ -- 863
-format.name$ -- 22
-if$ -- 2180
+cite$ -- 16
+duplicate$ -- 1949
+empty$ -- 2211
+format.name$ -- 52
+if$ -- 5463
 int.to.chr$ -- 0
-int.to.str$ -- 7
-missing$ -- 57
-newline$ -- 43
-num.names$ -- 7
-pop$ -- 91
+int.to.str$ -- 14
+missing$ -- 122
+newline$ -- 83
+num.names$ -- 14
+pop$ -- 183
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 118
+skip$ -- 230
 stack$ -- 0
-substring$ -- 1594
-swap$ -- 170
+substring$ -- 4474
+swap$ -- 337
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
-warning$ -- 0
-while$ -- 58
-width$ -- 8
-write$ -- 89
-(There was 1 warning)
+warning$ -- 2
+while$ -- 123
+width$ -- 16
+write$ -- 176
+(There were 2 warnings)

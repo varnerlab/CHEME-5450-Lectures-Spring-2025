@@ -1,4 +1,24 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{KEGG2024}
+Kanehisa M, Furumichi M, Sato Y, Matsuura Y, Ishiguro-Watanabe M.
+\newblock KEGG: biological systems database as a model of the real world.
+\newblock Nucleic Acids Research. 2024;53(D1):D672--D677.
+\newblock doi:{10.1093/nar/gkae909}.
+
+\bibitem{Karp:2019aa}
+Karp PD, Billington R, Caspi R, Fulcher CA, Latendresse M, Kothari A, et~al.
+\newblock The BioCyc collection of microbial genomes and metabolic pathways.
+\newblock Brief Bioinform. 2019;20(4):1085--1093.
+\newblock doi:{10.1093/bib/bbx085}.
+
+\bibitem{BiGG2020}
+Norsigian CJ, Pusarla N, McConn JL, Yurkovich JT, Dr{\"a}ger A, Palsson BO,
+  et~al.
+\newblock BiGG Models 2020: multi-strain genome-scale models and expansion
+  across the phylogenetic tree.
+\newblock Nucleic Acids Research. 2019;48(D1):D402--D406.
+\newblock doi:{10.1093/nar/gkz1054}.
 
 \bibitem{Famili:2003aa}
 Famili I, Palsson BO.
@@ -6,6 +26,27 @@ Famili I, Palsson BO.
   decomposition of genome-scale stoichiometric matrices.
 \newblock J Theor Biol. 2003;224(1):87--96.
 \newblock doi:{10.1016/s0022-5193(03)00146-2}.
+
+\bibitem{Brezinski:2006}
+Brezinski C, Redivo-Zaglia M.
+\newblock The PageRank Vector: Properties, Computation, Approximation, and
+  Acceleration.
+\newblock SIAM Journal on Matrix Analysis and Applications.
+  2006;28(2):551--575.
+\newblock doi:{10.1137/050626612}.
+
+\bibitem{Francis-QR-1961}
+Francis JGF.
+\newblock {The QR Transformation A Unitary Analogue to the LR
+  Transformation---Part 1}.
+\newblock The Computer Journal. 1961;4(3):265--271.
+\newblock doi:{10.1093/comjnl/4.3.265}.
+
+\bibitem{Francis-QR-1962}
+Francis JGF.
+\newblock {The QR Transformation---Part 2}.
+\newblock The Computer Journal. 1962;4(4):332--345.
+\newblock doi:{10.1093/comjnl/4.4.332}.
 
 \bibitem{Stewart:1993}
 Stewart GW.
@@ -46,5 +87,10 @@ Palacios P, Castro A, Azurdia-Meza C, Estevez C.
 \newblock SVD detection analysis in cognitive mobile radio networks.
 \newblock In: 2017 Ninth International Conference on Ubiquitous and Future
   Networks (ICUFN); 2017. p. 222--224.
+
+\bibitem{Cline2006ComputationOT}
+Cline AK, Dhillon IS.
+\newblock Computation of the Singular Value Decomposition; 2006.Available from:
+  \url{https://api.semanticscholar.org/CorpusID:124233634}.
 
 \end{thebibliography}
