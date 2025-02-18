@@ -130,8 +130,9 @@ This biophase can be a single cell, a compartment within a single cell, such as 
 a bioreactor. Let the volume of the biophase be $V$ (depending on the context, $V$ could be the volume of a single cell, the volume of the cytoplasm, cell number, cell mass, thus it will units specific to the case).
 Then, we can write balances around each chemical species $i\in\mathcal{M}$ in the system as (Defn. \ref{defn-material-balance}):
 
+\begin{mdframed}
 \begin{defn}[Material Balance Equation]\label{defn-material-balance}
-A material balance equation for species $i$ in a biophase with volume $V$ has four terms:
+A material balance equation for species $i$ in a system with volume $V$ has four terms:
 \begin{equation}\label{eqn-material-balance-words}
 \text{Accumulation} = \text{Generation} + \text{Transport In} - \text{Transport Out}
 \end{equation}
@@ -139,6 +140,7 @@ The \texttt{accumulation} term is the rate of change of species $i$ in the syste
 \texttt{generation} is the rate of production (consumption) of species $i$ by chemical reactions in the system,
 the \texttt{transport} terms describe the rate of phyisical transport (convection or passive diffusion) of species $i$ into (from) the system.
 \end{defn}
+\end{mdframed}
 Material balance equations can be written in terms of species concentration, the number of moles of the species, or the mass of the species.
 The choice of units depends on the context of the problem, and the type of data that is available. 
 However, we'll consider species mole balances and species concentration balances (as these are the most common types of material balances used in flux balance analysis).
@@ -147,14 +149,14 @@ However, we'll consider species mole balances and species concentration balances
 Suppose we have a system with volume $V$ in which we have a set of chemical species $\mathcal{M}$, a set of streams $\mathcal{S}$, and a set of chemical reactions $\mathcal{R}$.
 Using the four tems in Defn. \ref{defn-material-balance}, we can write the dynamic species mole balance for species $i$ in the system.
 Let $n_{i}$ denote the number of moles of chemical component $i\in\mathcal{M}$ (units: mmol or  $\mu$mol, etc).
-Further, each stream $s\in\mathcal{S}$ (flowing into or from) our volume has a direction parameter $\nu_{s}\in\left[-1,1\right]$. 
-If stream $s$ enters the system $\nu_{s} = +1$, however is stream $s$ exits the system then $\nu_{s} = -1$.
+Further, each stream $s\in\mathcal{S}$ (flowing into or from) our volume has a direction parameter $d_{s}\in\left[-1,1\right]$. 
+If stream $s$ enters the system $d_{s} = +1$, however is stream $s$ exits the system then $d_{s} = -1$.
 
 \begin{defn}[Dynamic species mole balance]\label{defn-dynamic-species-mole-balance}
 The number of moles of chemical component $n_{i}$ (unit: mol) in the system as a function of time is described by the 
 open species mass balance equation:
 \begin{equation}\label{eqn-species-mol-balance}
-\sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
+\sum_{s\in\mathcal{S}}d_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
 \qquad\forall{i}\in\mathcal{M}
 \end{equation}
 where $\dot{n}_{s,i}$ denotes the mole flow rate of component $i$ in stream $s$ (units: mol $i$/time),
@@ -186,8 +188,9 @@ Further, denote the set of chemical species as $\mathcal{M}$,
 the set of streams flowing into (or from) the system as $\mathcal{S}$, and the set of chemical reactions as $\mathcal{R}$.
 Using the four terms in Defn. \ref{defn-material-balance}, we can write the dynamic species concentration balance for species $i$ in the system.
 
+\begin{mdframed}
 \begin{defn}[Dynamic Species Concentration Balance]\label{defn-dynamic-species-concentration-balance}
-The number of moles of chemical component $n_{i}$ in the system is described by an open species mass balance equation:
+The number of moles of chemical component $n_{i}$ in the system is described by an open species concentration balance equation:
 \begin{equation}
 \sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
 \qquad\forall{i}\in\mathcal{M}
@@ -202,6 +205,7 @@ where $\dot{V}_{s}$ denotes the volumetric flow rate for stream $s$ (units: volu
 $C_{s,i}$ denotes the concentration of component $i$ in stream $s$ (units: concentration), 
 and $\dot{C}_{G,i}$ denotes the rate of generation of component $i$ by chemical reaction (units: concentration/time).
 \end{defn}
+\end{mdframed}
 
 Let's discuss the generation terms in Defn \ref{defn-dynamic-species-concentration-balance}.
 The generation terms for species $i$ in the concentration balance equation can be written as:
