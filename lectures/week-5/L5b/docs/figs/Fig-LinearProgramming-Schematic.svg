@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="622px" height="501px" viewBox="0 0 622 501" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>LP</title>
+    <g id="LP" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M97.5,170.919308 L182.652469,226.044018 L336.005762,432.5 L97.5,432.5 L97.5,170.919308 Z" id="Rectangle" stroke="#979797" fill-opacity="0.12" fill="#000000"></path>
+        <text id="Reaction-1" font-family="Helvetica" font-size="20" font-weight="normal" fill="#000000">
+            <tspan x="496" y="467">Reaction 1</tspan>
+        </text>
+        <text id="Constraint-1" transform="translate(458.8573, 372.3177) rotate(32) translate(-458.8573, -372.3177)" font-family="Helvetica-Bold, Helvetica" font-size="20" font-weight="bold" fill="#32C5FF">
+            <tspan x="400.357253" y="379.317671">Constraint 1</tspan>
+        </text>
+        <text id="Constraint-2" transform="translate(144.8573, 136.3177) rotate(56) translate(-144.8573, -136.3177)" font-family="Helvetica-Bold, Helvetica" font-size="20" font-weight="bold" fill="#E02020">
+            <tspan x="86.3572529" y="143.317671">Constraint 2</tspan>
+        </text>
+        <text id="Reaction-2" transform="translate(68.5, 88.5) rotate(-90) translate(-68.5, -88.5)" font-family="Helvetica" font-size="20" font-weight="normal" fill="#000000">
+            <tspan x="20.5" y="95.5">Reaction 2</tspan>
+        </text>
+        <path d="M97.5,170.5 L360.286489,333.501997 L521.5,433.5" id="Line-2" stroke="#32C5FF" stroke-width="2" stroke-linecap="square" stroke-dasharray="4"></path>
+        <path d="M97.5,101.5 L245.62729,307.266779 L336.5,433.5" id="Line-2" stroke="#E02020" stroke-width="2" stroke-linecap="square" stroke-dasharray="4"></path>
+        <polyline id="Line-2" stroke="#32C5FF" stroke-width="4" stroke-linecap="square" transform="translate(141, 196) rotate(-1) translate(-141, -196)" points="97.5 167.5 151.420813 202.827429 184.5 224.5"></polyline>
+        <polyline id="Line-2" stroke="#E02020" stroke-width="4" stroke-linecap="square" transform="translate(260.8305, 328.9561) rotate(-1) translate(-260.8305, -328.9561)" points="186.830464 223.95605 278.557823 354.109736 334.830464 433.95605"></polyline>
+        <line x1="97.5" y1="143.5" x2="414.5" y2="433.5" id="Line-3" stroke="#6236FF" stroke-width="3" stroke-linecap="square"></line>
+        <path id="Line" d="M594.93812,422.443028 L596.244811,423.179614 L612.236585,432.194222 L614.559592,433.503707 L612.234197,434.808948 L596.225985,443.794332 L594.91795,444.52853 L593.449555,441.912461 L594.757589,441.178263 L605.771,434.995 L595.500433,434.986302 L62.9986301,434.499999 L61.4986308,434.49863 L61.5013705,431.498631 L63.0013699,431.500001 L595.503173,431.986304 L605.776,431.995 L594.77164,425.792996 L593.464949,425.056411 L594.93812,422.443028 Z" fill="#000000" fill-rule="nonzero"></path>
+        <line x1="98.5" y1="172.5" x2="379.5" y2="433.5" id="Line-3" stroke="#6236FF" stroke-width="3" stroke-linecap="square"></line>
+        <line x1="96.5" y1="206.5" x2="336.5" y2="433.5" id="Line-3" stroke="#6236FF" stroke-width="3" stroke-linecap="square"></line>
+        <path id="Line" d="M96.4909384,6.44041682 L97.8034864,8.76169425 L106.839178,24.7415652 L107.577486,26.0472837 L104.966049,27.5239002 L104.227741,26.2181816 L98.01,15.223 L98.0334686,25.4922451 L98.9999963,458.496652 L99.0033445,459.996648 L96.0033519,460.003344 L96.0000037,458.503348 L95.033476,25.4989415 L95.01,15.229 L88.842506,26.2525237 L88.1100342,27.5615252 L85.4920311,26.0965816 L86.2245029,24.7875801 L95.1887663,8.76753068 L96.4909384,6.44041682 Z" fill="#000000" fill-rule="nonzero"></path>
+        <circle id="Oval" stroke="#000000" stroke-width="2" fill="#FFFFFF" cx="337" cy="433" r="5"></circle>
+        <circle id="Oval" stroke="#000000" stroke-width="2" fill="#FFFFFF" cx="97" cy="170" r="5"></circle>
+        <circle id="Oval" stroke="#000000" stroke-width="2" fill="#FFFFFF" cx="409" cy="433" r="5"></circle>
+        <text id="z1" font-family="Helvetica" font-size="18" font-weight="normal" fill="#6236FF">
+            <tspan x="112" y="256">z</tspan>
+            <tspan x="121" y="256">1</tspan>
+        </text>
+        <text id="z2" font-family="Helvetica" font-size="18" font-weight="normal" fill="#6236FF">
+            <tspan x="158" y="257">z</tspan>
+            <tspan x="167" y="257">2</tspan>
+        </text>
+        <text id="z3" font-family="Helvetica" font-size="18" font-weight="normal" fill="#6236FF">
+            <tspan x="389" y="402">z</tspan>
+            <tspan x="398" y="402">3</tspan>
+        </text>
+        <text id="Objective:-z3-&gt;-z2-&gt;" font-family="Helvetica-Bold, Helvetica" font-size="24" font-weight="bold" fill="#6236FF">
+            <tspan x="286" y="153">Objective:</tspan>
+            <tspan x="402.039062" y="153" font-family="Helvetica" font-weight="normal"> </tspan>
+            <tspan x="408.707031" y="153" font-family="Helvetica-Light, Helvetica" font-weight="300">z</tspan>
+            <tspan x="420.707031" y="153" font-family="Helvetica-Light, Helvetica" font-weight="300">3</tspan>
+            <tspan x="434.051031" y="153" font-family="Helvetica-Light, Helvetica" font-weight="300"> &gt; z</tspan>
+            <tspan x="475.235031" y="153" font-family="Helvetica-Light, Helvetica" font-weight="300">2</tspan>
+            <tspan x="488.579031" y="153" font-family="Helvetica-Light, Helvetica" font-weight="300"> &gt; z</tspan>
+            <tspan x="529.763031" y="153" font-family="Helvetica-Light, Helvetica" font-weight="300">1</tspan>
+        </text>
+        <text id="feasible-region" font-family="Helvetica-Light, Helvetica" font-size="18" font-weight="300" fill="#000000">
+            <tspan x="112.491" y="331">feasible</tspan>
+            <tspan x="118.656" y="353">region</tspan>
+        </text>
+        <line x1="184.5" y1="225.5" x2="96.5" y2="225.5" id="Line-4" stroke="#000000" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="184" y1="434" x2="184" y2="230" id="Line-4" stroke="#000000" stroke-width="2" stroke-linecap="square"></line>
+        <circle id="Oval" stroke="#000000" stroke-width="2" fill="#FFFFFF" cx="184" cy="225" r="5"></circle>
+        <circle id="Oval" stroke="#000000" stroke-width="2" fill="#000000" cx="184" cy="433" r="5"></circle>
+        <circle id="Oval" stroke="#000000" stroke-width="2" fill="#000000" cx="96" cy="227" r="5"></circle>
+        <text id="Optimal-Flux-2" font-family="Helvetica-Light, Helvetica" font-size="20" font-weight="300" fill="#000000">
+            <tspan x="11" y="218">Optimal </tspan>
+            <tspan x="27.64" y="242">Flux 2</tspan>
+        </text>
+        <text id="Optimal-Flux-1" font-family="Helvetica-Light, Helvetica" font-size="20" font-weight="300" fill="#000000">
+            <tspan x="148" y="463">Optimal </tspan>
+            <tspan x="156.32" y="487">Flux 1</tspan>
+        </text>
+    </g>
+</svg>
