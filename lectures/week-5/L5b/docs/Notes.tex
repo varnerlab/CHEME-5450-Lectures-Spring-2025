@@ -28,6 +28,13 @@
 \usepackage{enumitem}
 \usepackage{simplemargins}
 \usepackage{hyperref}
+\hypersetup{
+     colorlinks=true,
+     linkcolor=blue,
+     filecolor=red,
+     citecolor = red,      
+     urlcolor=cyan,
+}
 
 \usepackage{mdframed}
 \definecolor{lgray}{rgb}{0.92,0.92,0.92}
@@ -105,9 +112,9 @@
 \begin{mdframed}[backgroundcolor=lgray]
     In this lecture, we will discuss the following topics:
     \begin{itemize}[leftmargin=16pt]
-    \item{\textbf{Metabolism and metabolic networks}: A metabolic network is the complete set of metabolic (chemical) processes determining a cell's biochemical state. It encompasses all the chemical reactions associated with metabolism, i.e., the breakdown of raw materials such as sugars (catabolism) and the production of macromolecules, e.g., proteins, lipids, etc (anabolism).}
-    \item{\textbf{A stoichiometric matrix} is a mathematical representation of a metabolic network that encodes the relationships between reactants and products in the network, where rows correspond to different metabolites, contained in the set $\mathcal{M}$, and columns correspond to reactions, contained in the set $\mathcal{R}$. Thus, the stoichiometric matrix is a $\mathbf{S}\in\mathbb{R}^{|\mathcal{M}|\times|\mathcal{R}|}$ matrix holding the stochiometric coefficients $\sigma_{ij}\in\mathbf{S}$ for $i=1,2,\dots,|\mathcal{M}|$ and $j=1,2,\dots,|\mathcal{R}|$.}
-    \item{\textbf{Structural analysis of $\mathbf{S}$}: Structural analysis of the stoichiometric matrix involves examining its connectivity distribution and using tools such as eigendecomposition to explore the network's fundamental pathway structures and other topological properties. These types of analyses give us more insight into the structure of the network (and perhaps some indication of the importance of particular metabolites of reactions).}
+      \item{\href{sec:FBA}{Flux Balance Analysis (FBA)} is a mathematical approach for analyzing the steady-state flow of carbon and energy through a metabolic network operating in some abstract volume, e.g., a cell, a test tube, or a logical compartment. The flow of material through the reaction network is called the metabolic flux. We estimate metabolic flux using \href{https://en.wikipedia.org/wiki/Linear_programming}{linear programming} (not the only approach, but the one that we will start with).} 
+      \item{\href{sec:FBA}{Metabolic flux}, the rate of molecular flow in reaction pathways, is crucial for understanding cellular operations. It reveals how cells manage energy production, utilize nutrients, and respond to environmental changes, making it vital for studying diseases, drug development, and optimizing bioprocesses.}
+      \item{\href{sec:linear-programming}{Linear programming} is an optimization technique used to find the best outcome in a mathematical model whose requirements are represented by linear relationships, e.g., the maximization (minimization) of a linear objective function subject to linear equality, inequality, and bounds constraints.}
     \end{itemize}
  \end{mdframed}
 
@@ -148,66 +155,52 @@ However, we'll consider species mole balances and species concentration balances
 \subsubsection*{Dynamic Species Mole Balances}
 Suppose we have a system with volume $V$ in which we have a set of chemical species $\mathcal{M}$, a set of streams $\mathcal{S}$, and a set of chemical reactions $\mathcal{R}$.
 Using the four tems in Defn. \ref{defn-material-balance}, we can write the dynamic species mole balance for species $i$ in the system.
-Let $n_{i}$ denote the number of moles of chemical component $i\in\mathcal{M}$ (units: mmol or  $\mu$mol, etc).
+Let $n_{i}$ denote the number of moles of chemical component $i\in\mathcal{M}$ (units: mol).
 Further, each stream $s\in\mathcal{S}$ (flowing into or from) our volume has a direction parameter $d_{s}\in\left[-1,1\right]$. 
 If stream $s$ enters the system $d_{s} = +1$, however is stream $s$ exits the system then $d_{s} = -1$.
 
+\begin{mdframed}
 \begin{defn}[Dynamic species mole balance]\label{defn-dynamic-species-mole-balance}
 The number of moles of chemical component $n_{i}$ (unit: mol) in the system as a function of time is described by the 
 open species mass balance equation:
 \begin{equation}\label{eqn-species-mol-balance}
-\sum_{s\in\mathcal{S}}d_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
+\sum_{s\in\mathcal{S}}d_{s}\dot{n}_{i,} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
 \qquad\forall{i}\in\mathcal{M}
 \end{equation}
-where $\dot{n}_{s,i}$ denotes the mole flow rate of component $i$ in stream $s$ (units: mol $i$/time),
-$\dot{n}_{gen,i}$ denote the rate of generation of component $i$ in the system 
+where $\dot{n}_{i,s}$ denotes the mole flow rate of component $i$ in stream $s$ (units: mol $i$/time),
+$\dot{n}_{G,i}$ denote the rate of generation of component $i$ in the system 
 (units: mol-$i$/time), and $dn_{i}/dt$ denotes the rate of accumlation of the number of moles of component $i$ in the system (units: mol-$i$/time). 
-\end{defn}
-
-Let's discuss the generation terms in Defn \ref{defn-dynamic-species-mole-balance}. 
-Generation terms describe the impact of chemical reactions; theoretically, we can describe reactions using a mass or mole basis. 
-However, typically we operate on a mole (or concentration) basis when dealing with chemical reactions.
-Thus, the species generation rate $\dot{n}_{G,i}$ can be written in terms of the open extent of reaction:
+Generation terms describe the impact of chemical reactions.
+The species generation rate $\dot{n}_{G,i}$ can be written in terms of the open extent of reaction:
 \begin{equation}\label{eqn-open-extent-species}
 \dot{n}_{G,i} = \sum_{r\in\mathcal{R}}\sigma_{ir}\dot{\epsilon}_{r}
 \end{equation}
 where $\sigma_{ir}$ denotes the stoichiometric coefficient of species $i$ in reaction $r$, and $\dot{\epsilon}_{r}$ denotes the open extend of reaction $r$ (units: mol/time).
 Putting these ideas together, we can rewrite the dynamic species mole balance as:
-\begin{mdframed}[backgroundcolor=lgray]
 \begin{equation}\label{eqn-dynamic-smb-with-extent}
-\sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \sum_{r\in\mathcal{R}}\sigma_{ir}\dot{\epsilon}_{r} = \frac{dn_{i}}{dt}\qquad\forall{i\in\mathcal{M}}
+\sum_{s\in\mathcal{S}}d_{s}\dot{n}_{i,s} + \sum_{r\in\mathcal{R}}\sigma_{ir}\dot{\epsilon}_{r} = \frac{dn_{i}}{dt}\qquad\forall{i\in\mathcal{M}}
 \end{equation}
+\end{defn}
 \end{mdframed}
 
 \subsubsection*{Dynamic Species Concentration Balances}
-When describing systems with chemical reactions where we write reaction rate expressions in terms of 
-concentration, e.g., mole per unit volume basis, it is inconvient to use mole or mass based units.
+When describing systems with chemical reactions we write reaction rate expressions in terms of 
+concentration, e.g., mole per unit volume basis.
 In these cases, we need a new type of balance equation, the concentration balance. 
-Let $n_{i}$ denote the number of moles of chemical component $i$ in the system (units: mmol or  $\mu$mol). 
-Further, denote the set of chemical species as $\mathcal{M}$, 
-the set of streams flowing into (or from) the system as $\mathcal{S}$, and the set of chemical reactions as $\mathcal{R}$.
+Let $n_{i}$ denote the number of moles of chemical component $i$ in the system (units: mol). 
 Using the four terms in Defn. \ref{defn-material-balance}, we can write the dynamic species concentration balance for species $i$ in the system.
 
 \begin{mdframed}
 \begin{defn}[Dynamic Species Concentration Balance]\label{defn-dynamic-species-concentration-balance}
-The number of moles of chemical component $n_{i}$ in the system is described by an open species concentration balance equation:
-\begin{equation}
-\sum_{s\in\mathcal{S}}\nu_{s}\dot{n}_{s,i} + \dot{n}_{G,i} = \frac{dn_{i}}{dt}
-\qquad\forall{i}\in\mathcal{M}
-\end{equation}
-However, we can re-write the number of moles of species $i$ as $n_{i} = C_{i}V\qquad\forall{i}\in\mathcal{M}$
+Starting with the species mole balances (Defn \ref{defn-dynamic-species-mole-balance}), we can re-write the number of moles of species $i$ as $n_{i} = C_{i}V$ for ${i}\in\mathcal{M}$
 where $C_{i}$ denotes the concentration of species $i$ (units: mole per volume), and $V$ (units: volume) denotes the volume of the system. 
 Thus, we can re-write the species mole balance in concentration units as:
 \begin{equation}\label{eqn:concentration-balance}
-\sum_{s\in\mathcal{S}}\nu_{s}C_{s,i}\dot{V}_{s} + \dot{C}_{G,i}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i}\in\mathcal{M}
+\sum_{s\in\mathcal{S}}d_{s}C_{i,s}\dot{V}_{s} + \dot{C}_{G,i}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i}\in\mathcal{M}
 \end{equation}
 where $\dot{V}_{s}$ denotes the volumetric flow rate for stream $s$ (units: volume/time), 
-$C_{s,i}$ denotes the concentration of component $i$ in stream $s$ (units: concentration), 
+$C_{i,s}$ denotes the concentration of component $i$ in stream $s$ (units: concentration), 
 and $\dot{C}_{G,i}$ denotes the rate of generation of component $i$ by chemical reaction (units: concentration/time).
-\end{defn}
-\end{mdframed}
-
-Let's discuss the generation terms in Defn \ref{defn-dynamic-species-concentration-balance}.
 The generation terms for species $i$ in the concentration balance equation can be written as:
 \begin{equation}\label{eqn:concentration-gen-terms}
 \dot{C}_{G,i}V = \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V\qquad\forall{i}\in\mathcal{M}
@@ -216,13 +209,13 @@ where $\sigma_{ij}$ denotes the stoichiometric coefficient of species $i$ in rea
 and $\hat{v}_{j}$ denotes the rate of the jth chemical reaction per unit volume (units: concentration/volume-time), 
 and $V$ denotes the volume of the system (units: volume).
 Putting these ideas together, we can rewrite the dynamic species concentration balances (in the system) as:
-\begin{mdframed}[backgroundcolor=lgray]
 \begin{equation}\label{eqn:concentration-balance-with-extent}
-\sum_{s\in\mathcal{S}}\nu_{s}C_{s,i}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}
+\sum_{s\in\mathcal{S}}d_{s}C_{i,s}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}
 \end{equation}
+\end{defn}
 \end{mdframed}
 
-\section{Estimating Metabolic Fluxes}
+\section{Flux balance Analysis}\label{sec:FBA}
 Metabolic fluxes are the rates of the reactions in a metabolic network, which are the unknowns that we want to estimate from various types of experimental data.
 You can think of metabolic fluxes as the flow of metabolites through the metabolic network, which is analogous to the flow of water through a pipe.
 Thus, estimating the metabolic fluxes is important for understanding the structure and operation of a metabolic network as a function of the environment.
@@ -230,19 +223,57 @@ Metabolic fluxes can be estimated using a variety of mathematical methods, such 
 These two methods are based on different assumptions about the network, and they have different strengths and weaknesses.
 We are going to focus on FBA, but for those interested in MFA, we recommend the review of Antoniewicz \cite{ANTONIEWICZ20212}.
 
-\subsection{Flux Balance Analysis}
-Flux balance analysis (FBA) is another mathematical method for analyzing the structure and function of metabolic networks \cite{Orth:2010aa}.
-Flux balance analysis is arguably the most widely used computational tool to estimate the intracellular or cell-free reaction fluxes
-throughout a steady state reaction network (units: mol/volume-time). 
-However, while we are introducing flux balance analysis in the context of metabolic network analysis, FBA is a general tool that can be used to 
-estimate flows through many different types of networks and graphs, e.g., social graphs, communication networks, or other types of problems that can be represented as a network of graphs.  
+\subsection{Linear Programming}\label{sec:linear-programming}
+Flux balance analysis (FBA) is arguably the most widely used approach to estimate steady-state metabolic fluxes \cite{Orth:2010aa}. 
+FBA is based on the assumption that the system is at a steady state, which means that the concentrations of the metabolites in the system are not changing with time.
+This assumption allows us to estimate the fluxes through the network using linear programming.
+While we'll introduce linear programming in the context of metabolic network analysis, 
+it is a general tool that can be used to estimate flows through many different types of networks and graphs, e.g., social graphs, communication networks, or other types of problems that can be represented as a network of graphs.
 
-The goal of FBA is to estimate the intracellular reaction rates using whatever experimental data is available.
-The more data that is available, the more constraints we can put on the system, and the more accurate our estimates will be.
-However, one of the powerful aspects of FBA is that it can be used to estimate the metabolic fluxes in a system even when we have very little data.
+\begin{figure}
+  \centering
+\includegraphics[width=0.64\textwidth]{./figs/Fig-LinearProgramming-Schematic.pdf}
+\caption{Schematic of a two dimensional linear programming problem (maximization).
+The optimal solution lies at the intersection between constraints (which define a feasible region) and the objective hyperplane with has the largest objective value.
+In this case, the optimal solution is at the point $(x_{1}^{\star},x_{2}^{\star})$, which is where the objective function is maximized $z_{3}$.
+}\label{fig:LinearProgramming-Schematic}
+\end{figure}
+
+Linear programming is an optimization technique used to find the best outcome in a mathematical model whose requirements are represented by linear relationships.
+Linear programming is used to maximize (or minimize) a linear objective function subject to linear equality, inequality, and bounds constraints.
+The objective function is a linear combination of the decision variables, which are the unknowns that we are trying to estimate.
+The constraints are linear equations or inequalities that describe the relationships between the decision variables.
+
+The solution to the linear program is the set of decision variables that maximize (or minimize) the objective function subject to the constraints (Fig. \ref{fig:LinearProgramming-Schematic}).
+The constraints are linear equations or inequalities that describe the relationships between the decision variables.
+The constraints form a feasible region in the space of the decision variables, and the optimal solution is the point in the feasible region that maximizes (or minimizes) the objective function.
+The objective function is a linear combination of the decision variables, which are the unknowns that we are trying to estimate, thus it is a hyperplane in the space of the decision variables.
+The intersection objective function and the feasible region are potential solution points, where the optimal solution is the point that maximizes (or minimizes) the objective function.
+We are not going to dig into the theory of linear programming, but we will use it to estimate the metabolic fluxes in a metabolic network using FBA.
+For those interested in learning more about linear programming, we recommend \href{https://people.orie.cornell.edu/dpw/orie6300/}{the ORIE 6300 course notes by Prof. David Williamson}.
+
+Let $\mathcal{O}(\mathbf{x})$ denote a linear function of the non-negative decision variables $\mathbf{x}\in\mathbb{R}^{n}$
+whose values are constrained by a system of linear algebra equations and bounded. 
+Then, the optimal decision $\mathbf{x}^{\star}\in\mathbb{R}^{n}$ is the solution of the linear program (written in standard form):
+\begin{align*}
+\max_{\mathbf{x}} &\quad \mathcal{O}(\mathbf{x}) = \sum_{i=1}^{n} c_{i}{x}_{i}\\
+\text{subject to}&\quad\mathbf{A}\mathbf{x} \leq\mathbf{b}\\
+\text{and} &\quad x_{i}\geq{0}\quad{i=1,2,\dots,n}
+\end{align*}
+where $c_{i}\in\mathbb{R}$ are constant coefficients in the objective function, $\mathbf{A}\in\mathbb{R}^{m\times{n}}$ 
+is an $m\times{n}$ constraint matrix and $\mathbf{b}\in\mathbb{R}^{m}$ is an $m\times{1}$ right-hand side vector. 
+Any linear program can be converted into this standard form.  
+
+\subsection{FBA problem formulation}
+The goal of FBA is to estimate the intracellular reaction rates (fluxes) using whatever experimental data is available.
+The more data that is available, the more constraints we can put on the system, and the more accurate our flux estimates will be.
+However, one of the powerful aspects of FBA is that it can be used to estimate the metabolic fluxes even for a system in which we have very little data.
 Suppose we have a system, with a species set $\mathcal{M}$, stream set $\mathcal{S}$ and a reaction set $\mathcal{R}$. 
 Further, suppose that the system (or at least part of it) is at or near a steady state. 
-Then, the objective of the flux balance analysis is to estimate the value of the reaction rates operating in the system using linear programming.
+The optimal reaction rates can be esimated by solving the following linear program (Defn. \ref{defn-fba-concentration}).
+
+\begin{mdframed}
+\begin{defn}[Flux Balance Analysis (FBA)]\label{defn-fba-concentration}
 The flux balance analysis problem, whose solution provides estimates for the values of the unknown fluxes is the linear program: 
 \begin{eqnarray*}
 \text{minimize/maximize}~& & \sum_{i\in\mathcal{R}}c_{i}\hat{v}_{i}\\
@@ -257,6 +288,8 @@ The first set of constraints are material constraints,
 while the second imparts thermodynamic and kinetic information into the calculation. 
 Finally, there are potentially other types of constraints (both linear and nonlinear) not shown 
 that may be necessary for specific applications encountered in practice.
+\end{defn}
+\end{mdframed}
 
 
 
