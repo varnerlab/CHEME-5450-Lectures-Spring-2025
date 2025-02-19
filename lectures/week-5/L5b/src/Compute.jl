@@ -134,6 +134,9 @@ function reactionstring(metabolites::Dict{String,Any})::String
     return reactant_string * " = " * product_string;
 end
 
+"""
+    solve(model::AbstractFluxCalculationModel)
+"""
 function solve(model::AbstractFluxCalculationModel)
     return _flux(model);
 end
