@@ -275,24 +275,15 @@ The optimal reaction rates can be esimated using the following linear program (D
 \begin{mdframed}
 \begin{defn}[Flux Balance Analysis (FBA)]\label{defn-fba-concentration}
 The flux balance analysis problem, whose solution provides estimates for the values of the unknown fluxes is the linear program: 
-\begin{eqnarray*}
-\text{minimize/maximize}~& & \sum_{i\in\mathcal{R}}c_{i}\hat{v}_{i}\\
-\text{subject to} & & \sum_{s\in\mathcal{S}}\nu_{s}C_{s,i}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}\\
-\text{subject to} & & \mathcal{L}_{j}\leq\hat{v}_{j}\leq\mathcal{U}_{j}\qquad\forall{j\in\mathcal{R}}
-\end{eqnarray*}
-The $\sigma_{ij}\mathbf{S}$ are the elements of the  stoichiometric matrix $\mathbf{S}\in\R^{|\mathcal{M}|\times|\mathcal{R}|}$, 
-the terms $c_{i}$ denote the objective coefficients, 
-$\mathbf{v}$ denotes the unknown flux vector (the unknown that we are trying to estimate), and 
-$\mathcal{L}$ ($\mathcal{U}$) denote the permissible lower (upper) bounds on the unknown fluxes. 
-The first set of constraints are material constraints, 
-while the second imparts thermodynamic and kinetic information into the calculation. 
-Finally, there are potentially other types of constraints (both linear and nonlinear) not shown 
-that may be necessary for specific applications encountered in practice.
+\begin{align*}
+\max_{\hat{v}}\quad&  \sum_{i\in\mathcal{R}}c_{i}\hat{v}_{i}\\
+\text{subject to}\quad & \sum_{s\in\mathcal{S}}d_{s}C_{i,s}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}\\
+& \mathcal{L}_{j}\leq\hat{v}_{j}\leq\mathcal{U}_{j}\qquad\forall{j\in\mathcal{R}}
+\end{align*}
+Here, $\sigma_{ij}$ are elements of the stoichiometric matrix $\mathbf{S}$, $c_{i}$ are objective coefficients (you choose), $\hat{v}_{i}$ are unknown fluxes, and $\mathcal{L}_{j}$ and $\mathcal{U}_{j}$ are the lower and upper flux bounds, respectively.
+The $d_{s}$ terms are the direction parameters for the streams, and the $\dot{V}_{s}$ terms are the volumetric flow rates for the streams. 
 \end{defn}
 \end{mdframed}
-
-Test
-
 
 \bibliography{References-W5.bib}
 

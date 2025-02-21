@@ -1,0 +1,23 @@
+\begin{thebibliography}{1}
+
+\bibitem{Orth:2010aa}
+Orth JD, Thiele I, Palsson B{\O}.
+\newblock What is flux balance analysis?
+\newblock Nat Biotechnol. 2010;28(3):245--8.
+\newblock doi:{10.1038/nbt.1614}.
+
+\bibitem{BRENDA2021}
+Chang A, Jeske L, Ulbrich S, Hofmann J, Koblitz J, Schomburg I, et~al.
+\newblock BRENDA, the ELIXIR core data resource in 2021: new developments and
+  updates.
+\newblock Nucleic Acids Research. 2020;49(D1):D498--D508.
+\newblock doi:{10.1093/nar/gkaa1025}.
+
+\bibitem{Beber:2022aa}
+Beber ME, Gollub MG, Mozaffari D, Shebek KM, Flamholz AI, Milo R, et~al.
+\newblock eQuilibrator 3.0: a database solution for thermodynamic constant
+  estimation.
+\newblock Nucleic Acids Res. 2022;50(D1):D603--D609.
+\newblock doi:{10.1093/nar/gkab1106}.
+
+\end{thebibliography}

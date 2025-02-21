@@ -107,19 +107,116 @@
 }
 
 \begin{document}
-\lecture{5c}{Introduction to the Constraints in Flux Balance Analysis}{Jeffrey Varner}{}
+\lecture{5c}{Flux Balance Analysis Constraints and Bounds}{Jeffrey Varner}{}
 
 \begin{mdframed}[backgroundcolor=lgray]
     In this lecture, we will discuss the following topics:
     \begin{itemize}[leftmargin=16pt]
-    \item{\textbf{Metabolism and metabolic networks}: A metabolic network is the complete set of metabolic (chemical) processes determining a cell's biochemical state. It encompasses all the chemical reactions associated with metabolism, i.e., the breakdown of raw materials such as sugars (catabolism) and the production of macromolecules, e.g., proteins, lipids, etc (anabolism).}
-    \item{\textbf{A stoichiometric matrix} is a mathematical representation of a metabolic network that encodes the relationships between reactants and products in the network, where rows correspond to different metabolites, contained in the set $\mathcal{M}$, and columns correspond to reactions, contained in the set $\mathcal{R}$. Thus, the stoichiometric matrix is a $\mathbf{S}\in\mathbb{R}^{|\mathcal{M}|\times|\mathcal{R}|}$ matrix holding the stochiometric coefficients $\sigma_{ij}\in\mathbf{S}$ for $i=1,2,\dots,|\mathcal{M}|$ and $j=1,2,\dots,|\mathcal{R}|$.}
-    \item{\textbf{Structural analysis of $\mathbf{S}$}: Structural analysis of the stoichiometric matrix involves examining its connectivity distribution and using tools such as eigendecomposition to explore the network's fundamental pathway structures and other topological properties. These types of analyses give us more insight into the structure of the network (and perhaps some indication of the importance of particular metabolites of reactions).}
+      \item{Flux balance analysis (FBA) is a mathematical approach used to analyze the flow of metabolites through a metabolic network. It assumes a steady state where metabolite production, consumption, and transport rates are balanced. The FBA problem is formulated as a linear programming (LP) problem to maximize or minimize fluxes through the network, subject to constraints and bounds.}
+      \item{\href{sec-material-balance}{Material balance constraints} are used to ensure that the flow of metabolites into and out of a system is balanced (and physical). These constraints are typically represented as a set of linear equations, where the coefficients represent the stoichiometry of the reactions in the system in combination with transport and dilution terms.}
+      \item{\href{sec-flux-bounds}{Flux bounds constraints} limit the range of possible fluxes through a metabolic network. These bounds can incorporate additional information, such as experimental data or prior knowledge about the system, into the FBA problem.}
     \end{itemize}
  \end{mdframed}
 
 \section{Introduction}
+In this lecture, we do a deeper dive into the material balance constraints and the flux bounds in the 
+flux balance analysis (FBA) framework. 
 
-\bibliography{References-W4.bib}
+\section{Material Balance Constraints}\label{sec-material-balance}
+Flux balance analysis (FBA) aims to estimate the intracellular reaction rates (fluxes) using whatever experimental data is available.
+The more available data, the more constraints we can put on the system, the more accurate our flux estimates will be.
+However, one of the powerful aspects of FBA is that it can be used to estimate the metabolic fluxes even for a system in which we have very little data.
+Suppose we have a system, with a species set $\mathcal{M}$, stream set $\mathcal{S}$ and a reaction set $\mathcal{R}$. 
+Further, suppose that the system (or at least part of it) is at or near a steady state. 
+The optimal reaction rates can be esimated using the following linear program (Defn. \ref{defn-fba-concentration}).
+\begin{mdframed}
+\begin{defn}[Flux Balance Analysis (FBA)]\label{defn-fba-concentration}
+The flux balance analysis problem, whose solution provides estimates for the values of the unknown fluxes is the linear program: 
+\begin{align*}
+\max_{\hat{v}}\quad&  \sum_{i\in\mathcal{R}}c_{i}\hat{v}_{i}\\
+\text{subject to}\quad & \sum_{s\in\mathcal{S}}d_{s}C_{i,s}\dot{V}_{s} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V = \frac{d}{dt}\left(C_{i}V\right)\qquad\forall{i\in\mathcal{M}}\\
+& \mathcal{L}_{j}\leq\hat{v}_{j}\leq\mathcal{U}_{j}\qquad\forall{j\in\mathcal{R}}
+\end{align*}
+Here, $\sigma_{ij}$ are elements of the stoichiometric matrix $\mathbf{S}$, $c_{i}$ are objective coefficients (you choose), $\hat{v}_{i}$ are unknown fluxes, and $\mathcal{L}_{j}$ and $\mathcal{U}_{j}$ are the lower and upper flux bounds, respectively.
+The $d_{s}$ terms are the direction parameters for the streams, and the $\dot{V}_{s}$ terms are the volumetric flow rates for the streams. 
+\end{defn}
+\end{mdframed}
+However, this formulation looks a bit different from the one we have seen before in Orth et al \cite{Orth:2010aa}.
+Let's explore this further.
+
+\subsection{Simplified Species Constraints}
+In the Orth et al primer \cite{Orth:2010aa} the material balance constraints were written as $\mathbf{S}\hat{\mathbf{v}} = 0$. 
+This is a simplification; in reality, the material balance constraints are more complex. But let's see how we get there.
+When doing FBA, we often will make two assumptions:
+\begin{itemize}[leftmargin=16pt]
+\item{Steady-state, constant volume: The biological system (or at least part of it) is in a steady state, and in whole-cell models, the volume of the culture is constant. However, this is not the case in fed-batch cultures; many industrial biotechnology processes operate in fed-batch mode.}
+\item{Specific units: The volume basis for the intracellular species concentrations is in specific units, i.e., per unit cell mass measured in grams dry weight (units: gDW). For cell-free systems, the volume basis is the volume of the reactor.}
+\item{No transport or dilution terms: We will assume that there are no physical transport or dilution terms in the material balance equations. This is a simplification, but it is often used in FBA. For example, this assumption is not the case for continuous cell-free systems.}
+\end{itemize}
+
+Let the volume of our system be written in specific units, i.e., $V=B\bar{V}$, where $B$ is the biomass concentration (units: gDW/L) and $\bar{V}$ is the volume of the culture (units: L). 
+The material balance constraints can be simplified by assuming the species in our system are in a steady state. 
+But there is more to this story. Let's expand the accumulation terms:
+\begin{align*}
+\frac{d}{dt}\left(C_{i}V\right) &= \frac{d}{dt}\left(C_{i}B\bar{V}\right)\\
+&= B\bar{V}\underbrace{\left(\frac{dC_{i}}{dt}\right)}_{\text{steady state}\,=\,0} + C_{i}B\underbrace{\left(\frac{d\bar{V}}{dt}\right)}_{\text{steady state\,=\,0}} + C_{i}\bar{V}\left(\frac{dB}{dt}\right)\\
+C_{i}\bar{V}\left(\frac{dB}{dt}\right) & = \underbrace{\sum_{s\in\mathcal{S}}d_{s}C_{i,s}\dot{V}_{s}}_{\text{no transport\,=\,0}} + \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}V\\
+C_{i}\bar{V}\left(\frac{dB}{dt}\right) & = \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}B\bar{V}\\
+C_{i}\underbrace{\left[\frac{1}{B}\left(\frac{dB}{dt}\right)\right]}_{\text{specific growth rate $\mu$}} & = \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}\\
+C_{i}\mu & = \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}\\
+\sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j} - \underbrace{C_{i}\mu}_{\text{small}\,\ll{1}} & = 0\\
+\sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j} & = 0
+\end{align*}
+
+\section{Flux Bounds}\label{sec-flux-bounds}
+The flux bounds are important constraints in flux balance analysis calculations and the convex decomposition of the stoichiometric array. 
+Beyond their role in the flux estimation problem, the flux bounds are integrative, i.e., these constraints integrate many types of genetic and biochemical information into the problem. 
+A general model for these bounds is given by:
+\begin{align*}
+-\delta_{j}\underbrace{\left[{V_{max,j}^{\circ}}\left(\frac{e}{e^{\circ}}\right)\theta_{j}\left(\dots\right){f_{j}\left(\dots\right)}\right]}_{\text{reverse: other functions or parameters?}}\leq\hat{v}_{j}\leq{V_{max,j}^{\circ}}\left(\frac{e}{e^{\circ}}\right)\theta_{j}\left(\dots\right){f_{j}\left(\dots\right)}
+\end{align*}
+where $V_{max,j}^{\circ}$ denotes the maximum reaction velocity (units: flux) computed at some characteristic enzyme abundance. 
+Thus, the maximum reaction velocity is given by:
+\begin{equation*}
+V_{max,j}^{\circ} = k_{cat,j}^{\circ}e^{\circ}
+\end{equation*}
+where $k_{cat,j}$ is the catalytic constant or turnover number for the enzyme (units: 1/time) and $e^{\circ}$ is a characteristic enzyme abundance (units: concentration). 
+The term $\left(e/e^{\circ}\right)$ is a correction to account for the actual enzyme abundance catalyzing the reaction (units: dimensionless). 
+The $\theta_{j}\left(\dots\right)\in\left[0,1\right]$ is the current fraction of maximial enzyme activity of enzyme $e$ in reaction $j$. 
+The activity model $\theta_{j}\left(\dots\right)$ describes \href{https://en.wikipedia.org/wiki/Allosteric_regulation}{allosteric effects} on the reaction rate, 
+and is a function of the regulatory and the chemical state of the system, the concentration of substrates, products, and cofactors (units: dimensionless).
+Finally, the $f_{j}\left(\dots\right)$ is a function describing the substrate (reactants) dependence of the reaction rate $j$ (units: dimensionless). 
+
+\subsection{Simplfied bounds model}
+Let's initially assume that $(e/e^{\circ})\sim{1}$, there are no allosteric inputs $\theta_{j}\left(\dots\right)\sim{1}$, and the substrates are saturating $f_{j}\left(\dots\right)\sim{1}$. 
+Then, the flux bounds are given by:
+\begin{align*}
+-\delta_{j}V_{max,j}^{\circ}\leq{\hat{v}_{j}}\leq{V_{max,j}^{\circ}}
+\end{align*}
+This is a simple model for the flux bounds. 
+It is easy to see that the flux bounds are a function of the maximum reaction velocity, the catalytic constant or turnover number, and our assumed value of a characteristic enzyme abundance.
+
+\subsection{Turnover numbers and reversiblity}
+The turnover number, $k_{cat}$, measures an enzyme's catalytic activity, defined as the number of substrate molecules converted to product per enzyme molecule per unit time. Units are typically 1/time (e.g., 1/s or 1/min). 
+Values can be obtained from primary literature or databases like \href{https://www.brenda-enzymes.org/}{BRENDA} \citep{BRENDA2021}.
+The second thing we need to estimate is the reversibility parameter.
+The reversibility parameter $\delta_{j}$ can be computed in several ways. For example, one method in the literature is to use the sign of Gibbs reaction energy:
+\begin{equation*}
+\delta_{i} = \begin{cases}
+0 & \text{if }\text{sign}\left(\Delta{G}^{\circ} - \Delta{G}^{\star}\right)= -1 \quad\text{irreversible} \\
+1 & \text{if }\text{sign}\left(\Delta{G}^{\circ} - \Delta{G}^{\star}\right)= +1 \quad\text{reversible}
+\end{cases}
+\end{equation*}
+where $\Delta{G}^{\circ}$ is the standard Gibbs free energy change of the reaction, and $\Delta{G}^{\star}$ is a threshold value (hyperparameter). 
+The threshold value can be set to zero or some other value. Alternatively, the value of $\delta_{j}$ can be assigned based upon a cutoff $K^{\star}$ on the equilibrium constant:
+\begin{equation*}
+\delta_{i} = \begin{cases}
+0 & \text{if }K_{eq}>\,K^{\star}\quad\text{irreversible} \\
+1 & \text{if }K_{eq}\leq\,K^{\star}\quad\text{reversible}
+\end{cases}
+\end{equation*}
+where you specify the value $K^{\star}$ based upon some intution or other criteria. We can compute the $\Delta{G}^{\circ}$ values using \href{ttps://equilibrator.weizmann.ac.il}{eQuilibrator} \citep{Beber:2022aa}.
+
+\bibliography{References-W5.bib}
 
 \end{document}
