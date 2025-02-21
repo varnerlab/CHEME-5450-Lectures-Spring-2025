@@ -130,7 +130,7 @@ Suppose we have a system, with a species set $\mathcal{M}$, stream set $\mathcal
 Further, suppose that the system (or at least part of it) is at or near a steady state. 
 The optimal reaction rates can be esimated using the following linear program (Defn. \ref{defn-fba-concentration}).
 \begin{mdframed}
-\begin{defn}[Flux Balance Analysis (FBA)]\label{defn-fba-concentration}
+\begin{defn}[Flux Balance Analysis Problem)]\label{defn-fba-concentration}
 The flux balance analysis problem, whose solution provides estimates for the values of the unknown fluxes is the linear program: 
 \begin{align*}
 \max_{\hat{v}}\quad&  \sum_{i\in\mathcal{R}}c_{i}\hat{v}_{i}\\
@@ -147,11 +147,11 @@ Let's explore this further.
 \subsection{Simplified Species Constraints}
 In the Orth et al primer \cite{Orth:2010aa} the material balance constraints were written as $\mathbf{S}\hat{\mathbf{v}} = 0$. 
 This is a simplification; in reality, the material balance constraints are more complex. But let's see how we get there.
-When doing FBA, we often will make two assumptions:
+When doing FBA, we often will make three assumptions:
 \begin{itemize}[leftmargin=16pt]
-\item{Steady-state, constant volume: The biological system (or at least part of it) is in a steady state, and in whole-cell models, the volume of the culture is constant. However, this is not the case in fed-batch cultures; many industrial biotechnology processes operate in fed-batch mode.}
-\item{Specific units: The volume basis for the intracellular species concentrations is in specific units, i.e., per unit cell mass measured in grams dry weight (units: gDW). For cell-free systems, the volume basis is the volume of the reactor.}
-\item{No transport or dilution terms: We will assume that there are no physical transport or dilution terms in the material balance equations. This is a simplification, but it is often used in FBA. For example, this assumption is not the case for continuous cell-free systems.}
+\item{\textbf{Steady-state, constant volume}: The biological system (or at least part of it) is in a steady state, and in whole-cell models, the volume of the culture is constant. However, this is not the case in fed-batch cultures; many industrial biotechnology processes operate in fed-batch mode.}
+\item{\textbf{Specific units}: The volume basis for the intracellular species concentrations is in specific units, i.e., per unit cell mass measured in grams dry weight (units: gDW). For cell-free systems, the volume basis is the volume of the reaction.}
+\item{\textbf{No transport or dilution terms}: We will assume that there are no physical transport or dilution terms in the material balance equations. This is a simplification, but it is often used in FBA. For example, this assumption is not the case for continuous cell-free systems.}
 \end{itemize}
 
 Let the volume of our system be written in specific units, i.e., $V=B\bar{V}$, where $B$ is the biomass concentration (units: gDW/L) and $\bar{V}$ is the volume of the culture (units: L). 
@@ -167,6 +167,23 @@ C_{i}\mu & = \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j}\\
 \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j} - \underbrace{C_{i}\mu}_{\text{small}\,\ll{1}} & = 0\\
 \sum_{j\in\mathcal{R}}\sigma_{ij}\hat{v}_{j} & = 0
 \end{align*}
+
+Great! So then does everything in our system have to be at steady-state? Not exactly. 
+We can think of the system that we are studying as an open system, i.e., it can exchange material with the 
+surrondings. Thus, while the components of the system are at steady-state, the universe (system + surrondings) 
+as a whole is not. This is a subtle point, but it is important to understand. The exchange of material with the
+surrondings is captured in the context of our three assumptions by writing hypothetical reactions that 
+exchange material with the surrondings. We call these reactions the \texttt{exchange reactions}.
+Consider the toy network in Fig. \ref{fig:example-exchange-reactions}.
+The exchange reactions are written are those that cross the boundary of the system.
+
+\begin{figure}
+   \centering
+ \includegraphics[width=0.44\textwidth]{./figs/Fig-ExchangeReactions.png}
+ \caption{Example network reproduced by \citep{Bordbar:2014aa}.
+ The exchange reactions cross the boundary of the system.}\label{fig:example-exchange-reactions}
+\end{figure}
+
 
 \section{Flux Bounds}\label{sec-flux-bounds}
 The flux bounds are important constraints in flux balance analysis calculations and the convex decomposition of the stoichiometric array. 

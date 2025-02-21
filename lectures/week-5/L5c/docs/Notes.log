@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  21 FEB 2025 05:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.4.15)  21 FEB 2025 07:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -611,14 +611,25 @@ Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
 
 [2]
+<./figs/Fig-ExchangeReactions.png, id=58, 464.73625pt x 564.1075pt>
+File: ./figs/Fig-ExchangeReactions.png Graphic file (type png)
+<use ./figs/Fig-ExchangeReactions.png>
+Package pdftex.def Info: ./figs/Fig-ExchangeReactions.png  used on input line 1
+82.
+(pdftex.def)             Requested size: 206.69334pt x 250.88501pt.
+
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
 
-[3] (./Notes.bbl)
+[3 <./figs/Fig-ExchangeReactions.png>] (./Notes.bbl
 Overfull \vbox (6.94444pt too high) has occurred while \output is active []
 
 
-[4] (./Notes.aux)
+[4])
+Overfull \vbox (6.94444pt too high) has occurred while \output is active []
+
+
+[5] (./Notes.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -627,11 +638,11 @@ Package rerunfilecheck Info: File `Notes.out' has not changed.
 (rerunfilecheck)             Checksum: 4C2B76B0831745196D5D341876F3C0D8;1010.
  ) 
 Here is how much of TeX's memory you used:
- 12951 strings out of 474116
- 202813 string characters out of 5743682
- 1948187 words of memory out of 5000000
- 35086 multiletter control sequences out of 15000+600000
- 563955 words of font info for 59 fonts, out of 8000000 for 9000
+ 12972 strings out of 474116
+ 203328 string characters out of 5743682
+ 1947187 words of memory out of 5000000
+ 35103 multiletter control sequences out of 15000+600000
+ 564123 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  79i,18n,93p,542b,577s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
@@ -646,11 +657,12 @@ cal/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local
 texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
 exlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/tex
 live/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texl
-ive/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
-Output written on Notes.pdf (4 pages, 182774 bytes).
+ive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texli
+ve/2024/texmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb>
+Output written on Notes.pdf (5 pages, 398076 bytes).
 PDF statistics:
- 136 PDF objects out of 1000 (max. 8388607)
- 102 compressed objects within 2 object streams
- 16 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 153 PDF objects out of 1000 (max. 8388607)
+ 114 compressed objects within 2 object streams
+ 19 named destinations out of 1000 (max. 500000)
+ 54 words of extra memory for PDF output out of 10000 (max. 10000000)
 
