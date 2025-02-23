@@ -1,0 +1,50 @@
+This is BibTeX, Version 0.99d (TeX Live 2024)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: Notes.aux
+The style file: plos2015.bst
+Database file #1: References-W5.bib
+Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
+Reallocated global_strs (elt_size=200001) to 20 items from 10.
+Reallocated glb_str_end (elt_size=4) to 20 items from 10.
+Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
+You've used 4 entries,
+            3058 wiz_defined-function locations,
+            671 strings with 7763 characters,
+and the built_in function-call counts, 10652 in all, are:
+= -- 1330
+> -- 96
+< -- 0
++ -- 48
+- -- 24
+* -- 946
+:= -- 1168
+add.period$ -- 20
+call.type$ -- 4
+change.case$ -- 0
+chr.to.int$ -- 0
+cite$ -- 4
+duplicate$ -- 789
+empty$ -- 1016
+format.name$ -- 28
+if$ -- 2465
+int.to.chr$ -- 0
+int.to.str$ -- 4
+missing$ -- 48
+newline$ -- 27
+num.names$ -- 4
+pop$ -- 58
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 83
+stack$ -- 0
+substring$ -- 2262
+swap$ -- 120
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 48
+width$ -- 5
+write$ -- 54
