@@ -82,7 +82,7 @@ function build_stoichiometric_matrix(reactions::Array{String,1};
     # should we expand the reversible reactions?
     reactions_to_process = reactions;
     if (expand == true)
-        reactions_to_process = expand_reversible_reactions(reactions);
+        reactions_to_process = _expand_reversible_reactions(reactions);
     end
 	
 	# first: let's discover the species list -
@@ -103,8 +103,8 @@ function build_stoichiometric_matrix(reactions::Array{String,1};
 		product_phrase = String.(component_array[3]);
 
 		# generate species lists for the reactants and products, then merge -
-		merge!(tmp_dictionary, extract_species_dictionary(reactant_phrase; direction = -1.0))
-		merge!(tmp_dictionary, extract_species_dictionary(product_phrase; direction = 1.0))
+		merge!(tmp_dictionary, _extract_species_dictionary(reactant_phrase; direction = -1.0))
+		merge!(tmp_dictionary, _extract_species_dictionary(product_phrase; direction = 1.0))
 
 		# grab the tmp_dictionary for later -
 		push!(reaction_dictionary_array, tmp_dictionary)
