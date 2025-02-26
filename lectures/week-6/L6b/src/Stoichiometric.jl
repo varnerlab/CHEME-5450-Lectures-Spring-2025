@@ -71,6 +71,18 @@ end
 
 
 # -- PUBLIC API BELOW HERE ---------------------------------------------------------------------------------------- #
+"""
+	build_stoichiometric_matrix(reactions::Array{String,1}; expand::Bool=false) -> Tuple{Array{Float64,2}, Array{String,1}, Array{String,1}, Dict{String,String}}
+
+Build a stoichiometric matrix from a list of VFF reaction strings.
+
+### Arguments
+- `reactions::Array{String,1}`: an array of VFF reaction strings.
+- `expand::Bool=false`: should we expand the reversible reactions?
+
+### Returns
+- `Tuple{Array{Float64,2}, Array{String,1}, Array{String,1}, Dict{String,String}}`: a tuple containing the stoichiometric matrix, the species array, the reaction array, and a dictionary mapping reaction names to reaction strings.
+"""
 function build_stoichiometric_matrix(reactions::Array{String,1}; 
     expand::Bool=false)::Tuple{Array{Float64,2}, Array{String,1}, Array{String,1}, Dict{String,String}}
 
@@ -153,6 +165,21 @@ function build_stoichiometric_matrix(reactions::Array{String,1};
 	return (S, species_array, reaction_array, tmp_reaction_dictionary)
 end
 
+"""
+
+	build_default_bounds_array(reactions::Array{String,1}; defaultbound::Float64 = 1000.0) -> Array{Float64,2}
+
+Build a default bounds array for the VFF reaction records. 
+If the reaction is reversible, the bounds are [-defaultbound, defaultbound].
+If the reaction is irreversible, the bounds are [0.0, defaultbound].
+
+### Arguments
+- `reactions::Array{String,1}`: an array of VFF reaction strings.
+- `defaultbound::Float64=1000.0`: the default bound for the fluxes.
+
+### Returns
+- `Array{Float64,2}`: a 2D array with the default bounds for the fluxes.
+"""
 function build_default_bounds_array(reactions::Array{String,1}; defaultbound::Float64 = 1000.0)::Array{Float64,2}
 
 	# initialize -

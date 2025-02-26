@@ -1,5 +1,9 @@
 
 # -- PRIVATE METHODS BELOW HERE ------------------------------------------------------------------------------- #
+
+"""
+Private logic to solve the FBA problem for the `MyOptimalOpenExtentProblemCalculationModel` model type
+"""
 function _flux(problem::MyOptimalOpenExtentProblemCalculationModel)
 
     # initialize -
@@ -48,6 +52,9 @@ function _flux(problem::MyOptimalOpenExtentProblemCalculationModel)
     return results
 end
 
+"""
+Private logic to solve the FBA problem for the `MyPrimalFluxBalanceAnalysisCalculationModel` model type
+"""
 function _flux(problem::MyPrimalFluxBalanceAnalysisCalculationModel)
 
     # initialize -
@@ -122,6 +129,15 @@ end
 
 """
     binary(S::Array{Float64,2})::Array{Int64,2}
+
+Convert a matrix of floats to a matrix of binary values. 
+Each non-zero element in the input matrix is converted to 1, and each zero element is converted to 0.
+
+### Arguments
+- `S::Array{Float64,2}`: a matrix of floats.
+
+### Returns
+- `::Array{Int64,2}`: a matrix of binary values.
 """
 function binary(S::Array{Float64,2})::Array{Int64,2}
     
@@ -145,9 +161,53 @@ end
 
 """
     solve(model::AbstractFluxCalculationModel)
+
+Solve the flux calculation model.
+
+### Arguments
+- `model::AbstractFluxCalculationModel`: the flux calculation model to solve. The correct method
+  will be called based on the type of the model.
+
+### Returns
+- `Dict{String,Any}`: a dictionary with the results of the optimization.
 """
 function solve(model::AbstractFluxCalculationModel)
     return _flux(model);
+end
+
+
+"""
+    enumerate_binary_variable_cases(number_of_variables::Int) -> Array{Int,2}
+
+Enumerate all possible cases of `n` binary variables
+
+### Arguments
+- `number_of_variables::Int`: the number of binary variables to enumerate.
+
+### Returns
+- `Array{Int,2}`: a 2D array with all possible cases of `n` binary variables.
+"""
+function enumerate_binary_variable_cases(number_of_variables::Int)
+
+	# how many binary variables are we going to have?
+	number_of_rows = 2^number_of_variables	
+	
+	# initialize -
+	tmp_array = Array{Int,2}(undef, number_of_rows, number_of_variables)
+
+	# main -
+	for i ∈ 1:number_of_rows
+
+		# generate a row -
+		tmp_row = parse.(Int,Base.bin(UInt8(i-1), number_of_variables ,false) |> collect)
+
+		# add the row to the tmp_array =
+		for j ∈ 1:number_of_variables
+			tmp_array[i,j] = tmp_row[j]
+		end
+	end
+
+	return tmp_array
 end
 
 # -- PUBLIC METHODS ABOVE HERE -------------------------------------------------------------------------------- #

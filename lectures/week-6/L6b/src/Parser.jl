@@ -4,6 +4,18 @@ function +(buffer::Array{String,1}, line::String)
     push!(buffer, line)
 end
 
+"""
+    read_reaction_file(path_to_file::String) -> Array{String,1}
+
+Read in aVFF reaction file and return an array of records as strings.
+The comments are lines starting with "//".
+
+### Arguments
+- `path_to_file::String`: the path to the VFF reaction file.
+
+### Returns
+- `Array{String,1}`: an array of records as strings.
+"""
 function read_reaction_file(path_to_file::String)::Array{String,1}
 
     # initialize -
