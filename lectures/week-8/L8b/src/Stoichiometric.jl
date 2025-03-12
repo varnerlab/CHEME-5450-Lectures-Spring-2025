@@ -147,12 +147,28 @@ function build_stoichiometric_matrix(reactions::Array{String,1};
 	end
 
 	# update the reaction array
+	# tmp_reaction_dictionary = Dict{String,String}()
+	# for i ∈	eachindex(reaction_array)
+	# 	tmpreactionstring = reaction_array[i];
+		
+	# 	# split the reaction string -
+	# 	tmp_reaction_dictionary[tmpreactionstring] = reactions[i];
+	# end
+
+	# update the reaction array
 	tmp_reaction_dictionary = Dict{String,String}()
-	for i ∈	eachindex(reaction_array)
-		tmpreactionstring = reaction_array[i];
+	for i ∈	eachindex(reactions_to_process)
+		tmpreactionstring = reactions_to_process[i];
+
+		# split the reaction into its components -
+		component_array = split(tmpreactionstring,',');
+		name = component_array[1];
+		reactants = component_array[2];
+		products = component_array[3];
+		tmpstring = "$(reactants) = $(products)";
 		
 		# split the reaction string -
-		tmp_reaction_dictionary[tmpreactionstring] = reactions[i];
+		tmp_reaction_dictionary[name] = tmpstring;
 	end
 
 	# return -
