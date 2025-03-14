@@ -30,3 +30,4 @@ include(joinpath(_PATH_TO_SRC, "Network.jl"));
 include(joinpath(_PATH_TO_SRC, "Handler.jl"));
 include(joinpath(_PATH_TO_SRC, "Compute.jl"));
 include(joinpath(_PATH_TO_SRC, "Stoichiometric.jl"));
+include(joinpath(_PATH_TO_SRC, "Utility.jl"));
