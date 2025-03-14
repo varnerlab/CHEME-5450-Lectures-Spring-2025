@@ -1,0 +1,103 @@
+// --------------------------------------------------------------------- //
+// PHOB/PHOR network example
+// CHEME 5450 CBE, Cornell University, Ithaca NY 14853
+//
+// Jeffrey Varner
+// Professor, Chemical and Biomolecular Engineering
+// 244 Olin Hall, Cornell University, 
+// Ithaca NY 14853
+// 
+// E-mail: jdv27@cornell.edu
+// Tel: (607) 255 - 4258
+// Fax: (607) 255 - 9166
+// Url: www.varnerlab.org
+//
+// Records
+// name,reactants,products,lower,upper;
+// --------------------------------------------------------------------- //
+
+// INFRASTRUCTURE START ------------------------------------------------ //
+//
+// PORIN
+PORIN_SYNTHESIS,[],PORIN,0,inf;
+PORIN_TRANSLOCATION_MEMBRANE,PORIN,PORIN_MEMBRANE,0,inf;
+PORIN_DEGRADATION,PORIN,[],0,inf;
+PORIN_MEMBRANE_DEGRADATION,PORIN_MEMBRANE,[],0,inf;
+
+// PhoR
+PhoR_SYNTHESIS,[],PhoR,0,inf;
+PhoR_LOCALIZATION_MEMBRANE,PhoR,PhoR_MEMBRANE,0,inf;
+PhoR_DEGRADATION,PhoR,[],0,inf;
+PhoR_MEMBRANE_DEGRADATION,PhoR_MEMBRANE,[],0,inf;
+
+// PhoB
+PhoB_SYNTHESIS,[],PhoB,0,inf;
+PhoB_DEGRADATION,PhoB,[],0,inf;
+
+// Phosphatase PhoB
+PhoB_PPASE_SYNTHESIS,[],PhoB_PPASE,0,inf;
+PhoB_PPASE_DEGRADATION,PhoB_PPASE,[],0,inf;
+
+// RNAP 
+RNAP_ASSEMBLY,[],RNAP,0,inf;
+RNAP_DEGRADATION,RNAP,[],0,inf;
+
+// Ribosome assembly
+RIBOSOME_ASSEMBLY,[],RIBOSOME,0,inf;
+RIBOSOME_DEGRADATION,RIBOSOME,[],0,inf;
+
+// ATP/ADP
+ATP_SYNTHESIS,[],ATP,-inf,inf;
+ADP_SYNTHESIS,[],ADP,-inf,inf;
+//
+// INFRASTRUCTURE STOP ------------------------------------------------- //
+
+
+// SENSOR START -------------------------------------------------------- //
+//
+// Phosphate bulk -
+PI_BOUNDARY_LAYER_IN,[],PI_BOUNDARY,-inf,inf;
+// PI_BOUNDARY_LAYER_OUT,PI_BOUNDARY,[],0,inf;
+
+// Transport PI into the periplasim -
+PI_TRANSPORT_PERIPLASIM,PI_BOUNDARY+PORIN_MEMBRANE,PORIN_MEMBRANE_PI_BOUNDARY,-inf,inf;
+PI_TRANSPORT,PORIN_MEMBRANE_PI_BOUNDARY,PORIN_MEMBRANE+PI_PERIPLASIM,-inf,inf;
+PI_UPTAKE,PI_PERIPLASIM,[],0,inf;
+
+// Bind PI with PhoR -
+PI_BIND_PhoR,PI_PERIPLASIM+PhoR_MEMBRANE,PI_PERIPLASIM_PhoR_MEMBRANE,-inf,inf;
+DEGRADATION,PI_PERIPLASIM_PhoR_MEMBRANE,[],0,inf;
+
+// Activate PhoB -
+BIND_PhoR_ATP,PhoR_MEMBRANE+ATP,PhoR_MEMBRANE_ATP,-inf,inf;
+ACTIVATE_PhoB_BIND,PhoR_MEMBRANE_ATP+PhoB,PhoR_MEMBRANE_ATP_PhoB,-inf,inf;
+ACTIVATE_PhoB_TRANSFER,PhoR_MEMBRANE_ATP_PhoB,PhoR_MEMBRANE+ADP+P_PhoB,0,inf;
+
+// Deactivate PhoB -
+BIND_PhoB_ADP,PhoB_PPASE+ADP,PhoB_PPASE_ADP,-inf,inf;
+BIND_PhoB_PPASE,P_PhoB+PhoB_PPASE_ADP,P_PhoB_PhoB_PPASE_ADP,-inf,inf;
+BIND_PhoB_TRANSFER,P_PhoB_PhoB_PPASE_ADP,PhoB+PhoB_PPASE+ATP,0,inf;
+//
+// SENSOR STOP --------------------------------------------------------- //
+
+// TRANSCRIPTION START ------------------------------------------------- //
+//
+// PhoA
+PHOA_BACKGROUND_RNAP,G_PHOA+RNAP,G_PHOA_RNAP,-inf,inf;
+PHOA_START,G_PHOA_RNAP,G_PHOA+RNAP+mRNA_PHOA,0,inf;
+PHOA_TF,G_PHOA+P_PhoB,G_PHOA_P_PhoB,-inf,inf;
+PHOA_TF_RNAP,G_PHOA_P_PhoB+RNAP,G_PHOA_P_PhoB_RNAP,-inf,inf;
+PHOA_TF_START,G_PHOA_P_PhoB_RNAP,G_PHOA+P_PhoB+RNAP+mRNA_PHOA,0,inf;
+mRNA_DEGRADE_PHOA,mRNA_PHOA,[],0,inf;
+//
+// TRANSCRIPTION STOP -------------------------------------------------- //
+
+// TRANSLATION START --------------------------------------------------- //
+//
+// PhoA
+PHOA_TRANSLATION_BIND,mRNA_PHOA+RIBOSOME,mRNA_PHOA_RIBOSOME,-inf,inf;
+PHOA_TRANSLATION_SCAN,mRNA_PHOA_RIBOSOME,mRNA_PHOA_RIBOSOME_ACTIVE,0,inf;
+PHOA_TRANSLATION,mRNA_PHOA_RIBOSOME_ACTIVE,mRNA_PHOA+RIBOSOME+PhoA,0,inf;
+PHOA_DEGRADATION,PhoA,[],0,inf;
+//
+// TRANSLATION STOP ---------------------------------------------------- //
