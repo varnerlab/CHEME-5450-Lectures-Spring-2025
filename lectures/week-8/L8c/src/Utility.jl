@@ -46,82 +46,15 @@ function compute_translation_rate(rX_hat, parameter_dictionary::Dict{Symbol,Any}
     return rL_hat
 end
 
-function open_default_bounds_array(parameter_dictionary::Dict{Symbol,Any})
-
-    # get the default bounds array -
-    flux_bounds_array = deepcopy(parameter_dictionary[:flux_bounds_array])
-
-    # ok, so the bounds that matters are the X (R2) and L (R5) bounds -
-    rX_hat = compute_transcription_rate(parameter_dictionary)
-    rL_hat = compute_translation_rate(rX_hat,parameter_dictionary)
-
-    # update the bounds -
-    # transcription rate (eqaulity constrained to rX_hat)
-    flux_bounds_array[2,1] = 0          # lower bound on transcription
-    flux_bounds_array[2,2] = rX_hat     # upper bound on transcription
-
-    # translation rate (0 -> rL_hat)
-    flux_bounds_array[5,1] = 0          # lower bound is no translation
-    flux_bounds_array[5,2] = rL_hat     # upper bound is rL_hat
-
-    # package -
-    parameter_dictionary[:flux_bounds_array] = flux_bounds_array
-
-    # return -
-    return parameter_dictionary
-
-end
-
-function update_default_bounds_array(parameter_dictionary::Dict{Symbol,Any})
-
-    # get the default bounds array -
-    flux_bounds_array = deepcopy(parameter_dictionary[:flux_bounds_array])
-
-    # ok, so the bounds that matters are the X (R2) and L (R5) bounds -
-    rX_hat = compute_transcription_rate(parameter_dictionary)
-    rL_hat = compute_translation_rate(rX_hat,parameter_dictionary)
-
-    # update the bounds -
-    # transcription rate (eqaulity constrained to rX_hat)
-    flux_bounds_array[2,1] = rX_hat     # lower bound on transcription
-    flux_bounds_array[2,2] = rX_hat     # upper bound on transcription
-
-    # translation rate (0 -> rL_hat)
-    flux_bounds_array[5,1] = 0          # lower bound is no translation
-    flux_bounds_array[5,2] = rL_hat     # upper bound is rL_hat
-
-    # package -
-    parameter_dictionary[:flux_bounds_array] = flux_bounds_array
-
-    # return -
-    return parameter_dictionary
-end
-
 function generate_parameter_dictionary(path_to_parameter_file::String)
 
-    # some constants -
-    av_number = 6.02e23
+    # Initialize 0
+    parameter_dictionary = Dict{Symbol,Any}()
+    av_number = 6.02e23; # set Av number
 
     # load the parameter JSON file -
     simulation_json_tree = JSON.parsefile(path_to_parameter_file)
-
-    # initialize -
-    parameter_dictionary = Dict{Symbol,Any}()
-
-    # do some stuff, and populate the dictionary -
-    # stoichiometrix_matrix = readdlm(simulation_json_tree["paths_to_model_files"]["path_to_stochiometric_matrix_file"])
-    # flux_bounds_array = readdlm(simulation_json_tree["paths_to_model_files"]["path_to_flux_bounds_file"])
-
-    # # remove the unbalanced species ([e]'s start at 18, see Debug.txt')
-    # balanced_stoichiometrix_matrix = stoichiometrix_matrix[1:17,:]
-
-    # # get system size so I can make the species bounds array -
-    # (number_of_species, number_of_fluxes) = size(balanced_stoichiometrix_matrix)
-    # species_bounds_array = zeros(number_of_species,2)
-
-    # # by default, objective_coefficient_array is zeros -
-    # objective_coefficient_array = zeros(number_of_fluxes)
-
+    
     # calculate the gene concentration -
     gene_copy_number = parse(Float64,simulation_json_tree["simulation_paramaters"]["gene_copy_number"])
     volume_in_L = (1/1e6)*parse(Float64,simulation_json_tree["simulation_paramaters"]["cf_reaction_volume_in_muL"])
@@ -209,7 +142,6 @@ function generate_parameter_dictionary(path_to_parameter_file::String)
     parameter_dictionary[:kdL] = kdL
     parameter_dictionary[:KX] = KX
     parameter_dictionary[:KL] = KL
-    parameter_dictionary[:kdL] = kdL
     parameter_dictionary[:VX] = VX
     parameter_dictionary[:VL] = VL
     parameter_dictionary[:induction_parameter_dictionary] = induction_parameter_dictionary

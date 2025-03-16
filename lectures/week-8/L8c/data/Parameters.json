@@ -1,8 +1,8 @@
 {
   
   "simulation_paramaters":{
-    "length_of_gene_in_nt":"924",
-    "length_of_protein_in_aa":"308",
+    "length_of_gene_in_nt":"1461",
+    "length_of_protein_in_aa":"471",
     "gene_copy_number":"4.5e9",
     "cf_reaction_volume_in_muL":"15",
     "cf_dilution_factor":"76.0",
